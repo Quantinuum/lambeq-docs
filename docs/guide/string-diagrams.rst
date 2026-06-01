@@ -6,7 +6,7 @@ String diagrams
 Motivation and connection to tensor networks
 --------------------------------------------
 
-"Programming" a quantum computer requires from developers the ability to manipulate :term:`quantum gates <quantum gate>` (which can be seen as the "atomic" units of computation in this paradigm) in order to create :term:`quantum circuits <quantum circuit>`, which can be further grouped into higher-order constructions. Working at such a low level compares to writing assembly in a classical computer, and is extremely hard for humans -- especially on :term:`NLP <natural language processing (NLP)>` tasks which contain many levels of abstractions.
+"Programming" a quantum computer requires from developers the ability to manipulate :term:`quantum gates <quantum gate>` (which can be seen as the "atomic" units of computation in this paradigm) in order to create :term:`quantum circuits <quantum circuit>`, which can be further grouped into higher-order constructions. Working at such a low level compares to writing assembly in a classical computer, and can be challenging for humans -- especially on :term:`NLP <natural language processing (NLP)>` tasks which contain many levels of abstractions.
 
 In order to simplify :term:`NLP <natural language processing (NLP)>` design on quantum hardware, ``lambeq`` represents sentences as :term:`string diagrams <string diagram>` (:numref:`fig-stringdiagram`). This choice stems from the fact that a :term:`string diagram` expresses computations in a :ref:`monoidal category </tutorials/monoidal.ipynb#Monoidal-categories>`, an abstraction well-suited to model the way a quantum computer works and processes data.
 
@@ -18,7 +18,7 @@ From a more practical point of view, a :term:`string diagram` can be seen as an 
 
    String diagram (a) and corresponding tensor network (b).
 
-:term:`String diagrams <string diagram>` and :term:`tensor networks <tensor network>` constitute an ideal abstract representation of the compositional relations between the words in a sentence, in the sense that they remain close to :term:`quantum circuits <quantum circuit>`, yet are independent of any low-level decisions (such as choice of :term:`quantum gates <quantum gate>` and construction of circuits representing words and sentences) that might vary depending on design choices and the type of quantum hardware that the experiment is running on.
+:term:`String diagrams <string diagram>` and :term:`tensor networks <tensor network>` provide a useful abstract representation of the compositional relations between the words in a sentence, in the sense that they remain close to :term:`quantum circuits <quantum circuit>`, yet are independent of any low-level decisions (such as choice of :term:`quantum gates <quantum gate>` and construction of circuits representing words and sentences) that might vary depending on design choices and the type of quantum hardware that the experiment is running on.
 
 .. _sec-pregroup-grammars:
 

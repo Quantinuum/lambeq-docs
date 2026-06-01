@@ -145,9 +145,9 @@ Evaluation of quantum circuits on a quantum computer
    - :py:class:`.TketModel` with :py:class:`.QuantumTrainer`.
    - :py:class:`.PennyLaneModel` with :py:class:`.PytorchTrainer`.
 :When to use:
-   The real thing, use it whenever possible!
+   Use when hardware access is available and aligns with your experimental goals.
 
-As soon as you are satisfied with the results of the simulations, it's time for the ultimate test of your model on a real quantum machine. For this, you will need an account on a platform that provides quantum services, such as `IBM Quantum <https://quantum-computing.ibm.com>`_.
+After obtaining satisfactory simulation results, an optional next step is to evaluate your model on a real quantum machine. For this, you will need an account on a platform that provides quantum services, such as `IBM Quantum <https://quantum-computing.ibm.com>`_.
 
 .. note::
 

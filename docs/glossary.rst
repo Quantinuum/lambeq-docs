@@ -15,7 +15,7 @@ Glossary
         A :term:`compositional model` of meaning which represents a sentence as a multiset of words; that is, it does not take into account the order of words or any other syntactic relationship between them.
 
     Bobcat
-        A state-of-the-art statistical :term:`CCG <Combinatory Categorial Grammar (CCG)>` parser based on :cite:p:`clark_2021`. Bobcat is ``lambeq``'s default parser.
+        A statistical :term:`CCG <Combinatory Categorial Grammar (CCG)>` parser based on :cite:p:`clark_2021`. Bobcat is ``lambeq``'s default parser.
 
     cap
         A special morphism in a :term:`rigid category`, which, together with a :term:`cup` morphism, obey certain conditions called :term:`snake equations`. In diagrammatic form, a cap is depicted as a wire with downward concavity (:math:`\cap`). In the context of :term:`DisCoCat`, a cap is mostly used to "bridge" disconnected wires in order to alter the normal "flow" of information from one word to another, for example in cases such as *type-raising*.
@@ -51,7 +51,7 @@ Glossary
         The DIStributional COmpositional CATegorical model of natural language meaning developed by Bob Coecke, Mehrnoosh Sadrzadeh and Steve Clark :cite:p:`coecke_2010`.  The model applies a :term:`functor` :math:`F: \textrm{Grammar} \to \textrm{Meaning}` whose left-hand side is a free pregroup over a partially ordered set of basic grammar types, and the right-hand side is the category whose morphisms describe a sequence of operations that can be evaluated on a classical or quantum computer.
 
     DisCoCirc
-        DIStributional COmpositional CIRCuit. A framework of compositional models (still at the experimental stage) with the ability to encode entire paragraphs or even documents into a quantum circuit, based on :cite:p:`coecke_2021a`. The generated quantum circuits capture the core semantic information of the provided text, and can be trained as a regular machine learning model.
+        DIStributional COmpositional CIRCuit. A framework of compositional models (still at the experimental stage) with the ability to encode entire paragraphs or even documents into a quantum circuit, based on :cite:p:`coecke_2021a`. The generated quantum circuits are intended to represent selected semantic relationships in the provided text, and can be trained as a regular machine learning model.
 
     DisCoPy
         DIStributional COmpositional PYthon. A Python library for working with :term:`monoidal categories <monoidal category>` :cite:p:`de_felice_2021`. It includes abstractions for creating all standard :term:`quantum gates <quantum gate>` and building :term:`quantum circuits <quantum circuit>`. Additionally, it is equipped with many language-related features, such as support for :term:`pregroup grammars <pregroup grammar>` and :term:`functors <functor>` for implementing :term:`compositional models <compositional model>`.

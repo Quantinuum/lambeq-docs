@@ -67,6 +67,4 @@
    :caption: External links
    :maxdepth: 1
 
-   Resources <https://qnlp.cambridgequantum.com/downloads.html>
-   Web demo <https://qnlp.cambridgequantum.com/generate.html>
    DisCoPy <https://discopy.readthedocs.io>

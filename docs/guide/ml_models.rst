@@ -20,7 +20,7 @@ Circuits containing only :py:class:`Bra <lambeq.backend.quantum.Bra>`, :py:class
 
 In the common use case of using a :py:data:`~lambeq.text2diagram.stairs_reader` or a :py:class:`.TreeReader` with discarding for binary classification, the process involves measuring (:py:class:`Measure <lambeq.backend.quantum.Measure>`) one of the "open" qubits, and discarding (:py:class:`Discard <lambeq.backend.quantum.Discard>`) the rest of them.
 
-One advantage that the :py:class:`.NumpyModel` has over the :py:class:`.TketModel` is that it supports the just-in-time (jit) compilation provided by the library ``jax``. This speeds up the model's diagram evaluation by an order of magnitude. The :py:class:`.NumpyModel` with ``jit`` mode enabled can be instantiated with the following command:
+One advantage that the :py:class:`.NumpyModel` has over the :py:class:`.TketModel` is that it supports the just-in-time (jit) compilation provided by the library ``jax``. This may be able to speed up the model's diagram evaluation. The :py:class:`.NumpyModel` with ``jit`` mode enabled can be instantiated with the following command:
 
 .. code-block:: python
 
@@ -52,7 +52,7 @@ To use the :py:class:`.NumpyModel` with ``jit`` mode, you need to install ``lamb
 PennyLaneModel
 --------------
 
-:py:class:`.PennyLaneModel` uses :term:`PennyLane` and :term:`PyTorch` to allow classical-quantum machine learning experiments. With ``probabilities=False``, :py:class:`.PennyLaneModel` performs a state vector simulation, while with ``probabilties=True`` it performs a probability simulation. The state vector and probability simulations correspond to unitary and density matrix simulations.
+:py:class:`.PennyLaneModel` uses :term:`PennyLane` and :term:`PyTorch` to allow classical-quantum machine learning experiments. With ``probabilities=False``, :py:class:`.PennyLaneModel` performs a state vector simulation, while with ``probabilities=True`` it performs a probability simulation. The state vector and probability simulations correspond to unitary and density matrix simulations.
 
 To run the model on real quantum hardware, ``probabilities=True`` must be used, so that the ``lambeq`` circuits are optimized using the parameter-shift rule to calculate the gradients.
 

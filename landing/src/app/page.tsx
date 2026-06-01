@@ -41,7 +41,7 @@ const cardConfig = [
         },
         {
             "title": "Training models",
-            "description": "Learn how to use the provided state-of-the-art trainers to train your models for language processing tasks.",
+            "description": "Learn how to use the provided trainers to train your models for language processing tasks.",
             "link": "training.html"
         }
     ]
@@ -60,7 +60,7 @@ const cardConfig = [
         },
         {
             "title": "Extending \u03BBambeq",
-            "description": "Learn how to take advantage of the extensible nature of \u03BBambeq and how to add new features tailored to you work.",
+            "description": "Learn how to take advantage of the extensible nature of \u03BBambeq and how to add new features tailored to your work.",
             "link": "tutorials/extend-lambeq.html"
         }
     ]

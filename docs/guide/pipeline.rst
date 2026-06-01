@@ -12,7 +12,7 @@ In ``lambeq``, the conversion of a sentence into a :term:`quantum circuit` goes 
 
 In more detail:
 
-1. A :term:`syntax tree` for the sentence is obtained by calling a statistical :ref:`CCG parser <sec-parsing>`. ``lambeq`` is equipped with a detailed API that greatly simplifies this process, and ships with support for several state-of-the-art parsers.
+1. A :term:`syntax tree` for the sentence is obtained by calling a statistical :ref:`CCG parser <sec-parsing>`. ``lambeq`` is equipped with a detailed API that greatly simplifies this process, and ships with support for several widely used parsers.
 
 2. Internally, the :term:`parse tree <syntax tree>` is converted into a :ref:`string diagram <sec-string-diagrams>`. This is an abstract representation of the sentence reflecting the relationships between the words as defined by the :term:`compositional model` of choice, independently of any implementation decisions that take place at a lower level.
 

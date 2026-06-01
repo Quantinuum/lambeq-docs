@@ -11,7 +11,7 @@ Contributions to ``lambeq`` are welcome, especially with regard to adding:
 - Tensor and circuit :term:`ansätze <ansatz (plural: ansätze)>` (extensions of the :py:class:`.TensorAnsatz` and :py:class:`.CircuitAnsatz` classes)
 - New :term:`trainers <trainer>`, :term:`models <model>`, and optimizers for the :py:mod:`.training` package.
 
-All accepted contributions will be included in the next official release and contributors will be properly attributed in the corresponding release notes.
+Accepted contributions are typically included in a subsequent official release, subject to release planning, and contributors are properly attributed in the corresponding release notes.
 
 Opening a pull request
 ----------------------
