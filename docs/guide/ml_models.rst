@@ -85,14 +85,14 @@ By using different backend configurations, :py:class:`.PennyLaneModel` can be us
    :header: "Use case", "Configurations"
    :widths: 25, 50
 
-   "Exact non :term:`shot-based <shots>` simulation with state outputs", "``{'backend': 'default.qubit', 'probabilities'=False}``"
-   "Exact non shot-based simulation with probability outputs", "``{'backend': 'default.qubit', 'probabilities'=True}``"
-   "Noiseless shot-based simulation", "``{'backend': 'default.qubit', 'shots'=1000, 'probabilities'=True}``"
-   "Noisy shot-based simulation on local hardware", "``{'backend': 'qiskit.aer', noise_model=my_noise_model, 'shots'=1000, 'probabilities'=True}``, where ``my_noise_model`` is an AER :py:class:`NoiseModel`."
-   "Noisy shot-based simulation on cloud-based emulators", "| ``{'backend': 'qiskit.ibmq', 'device'='ibmq_qasm_simulator', 'shots'=1000, 'probabilities'=True}``
-   | ``{'backend': 'honeywell.hqs', device=('H1-1E' or 'H1-2E'), 'shots'=1000, 'probabilities'=True}``"
-   "Evaluation of quantum circuits on a quantum computer", "| ``{'backend': 'qiskit.ibmq', 'device'='ibmq_hardware_device', 'shots'=1000, 'probabilities'=True}``, where ``ibmq_hardware_device`` is one that you have access to via your IBMQ account.
-   | ``{'backend': 'honeywell.hqs', device=('H1' or 'H1-1' or 'H1-2'), 'shots'=1000, 'probabilities'=True}``"
+   "Exact non :term:`shot-based <shots>` simulation with state outputs", "``{'backend': 'default.qubit', 'probabilities': False}``"
+   "Exact non shot-based simulation with probability outputs", "``{'backend': 'default.qubit', 'probabilities': True}``"
+   "Noiseless shot-based simulation", "``{'backend': 'default.qubit', 'shots': 1000, 'probabilities': True}``"
+   "Noisy shot-based simulation on local hardware", "``{'backend': 'qiskit.aer', 'noise_model': my_noise_model, 'shots': 1000, 'probabilities': True}``, where ``my_noise_model`` is an AER :py:class:`NoiseModel`."
+   "Noisy shot-based simulation on cloud-based emulators", "| ``{'backend': 'qiskit.ibmq', 'device': 'ibmq_qasm_simulator', 'shots': 1000, 'probabilities': True}``
+   | ``{'backend': 'honeywell.hqs', 'device': 'H1-1E', 'shots': 1000, 'probabilities': True}`` (or with ``'device': 'H1-2E'``)"
+   "Evaluation of quantum circuits on a quantum computer", "| ``{'backend': 'qiskit.ibmq', 'device': 'ibmq_hardware_device', 'shots': 1000, 'probabilities': True}``, where ``ibmq_hardware_device`` is one that you have access to via your IBMQ account.
+   | ``{'backend': 'honeywell.hqs', 'device': 'H1', 'shots': 1000, 'probabilities': True}`` (or with ``'device': 'H1-1'`` or ``'device': 'H1-2'``)"
 
 All of these backends are compatible with hybrid quantum-classical models. Note that using quantum hardware or cloud-based emulators are much slower than local simulations.
 

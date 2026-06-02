@@ -18,7 +18,7 @@ lambeq use cases
 
 The above figure introduces a couple of concepts that might need further explanation for users new to quantum computing:
 
-- **shot-based run/simulation**: Unlike classical computers, quantum computers are inherently non-deterministic. This means that running a quantum circuit only once and using the output for some task would produce unreliable results. The solution is to run the same circuit many times (or :term:`shots`), exploiting statistical aggregation. The inherent uncertainty of quantum computers is greatly increased by the limitations of current :term:`NISQ` devices, which are prone to :term:`noise`, errors, and environmental interference.
+- **shot-based run/simulation**: Unlike classical computers, quantum computers are inherently non-deterministic. This means that running a quantum circuit only once and using the output for some task may produce unreliable results. A common approach is to run the same circuit many times (or :term:`shots`) and use statistical aggregation. On current :term:`NISQ` devices, this statistical variability can be further influenced by factors such as :term:`noise` and environmental interference.
 - **noisy simulation**: A noisy simulation uses a noise model that tries to approximate the negative effect of noise, errors, and environmental interference that are inherent in current :term:`NISQ` devices. It is the closest you can get to an actual quantum run from a simulation running on classical hardware.
 
 :numref:`tbl-usecases` provides a concise reference for the most common scenarios, together with the recommended ``lambeq`` models and trainers to use for each of them, while the following subsections present each case in more detail.
@@ -161,14 +161,14 @@ After obtaining satisfactory simulation results, an optional next step is to eva
    "`Alpine Quantum Technologies <https://www.aqt.eu/qc-systems/>`_", "`Trapped ions <https://en.wikipedia.org/wiki/Trapped_ion_quantum_computer>`_"
    "`Amazon Braket <https://aws.amazon.com/braket/>`_", "`Annealing <https://en.wikipedia.org/wiki/Quantum_annealing>`_, trapped ions, `superconducting qubits <https://en.wikipedia.org/wiki/Superconducting_quantum_computing>`_, `photonics <https://pennylane.ai/qml/demos/tutorial_photonics.html>`_"
    "`Atom Computing <https://atom-computing.com/>`_", "`Neutral atoms <https://pennylane.ai/qml/demos/tutorial_pasqal.html>`_ in an `optical lattice <https://en.wikipedia.org/wiki/Optical_lattice>`_"
-   "`Google Quantum AI <https://quantumai.google/quantum-computing-service>`_", "Superconducting qubits"
+   "`Google Quantum AI <https://quantumai.google/>`_", "Superconducting qubits"
    "`IBM Quantum <https://quantum-computing.ibm.com>`_", "Superconducting qubits"
    "`IonQ Cloud access <https://ionq.com/get-started/#cloud-access>`_", "Trapped ions"
    "`IQM <https://www.meetiqm.com/>`_", "Superconducting qubits"
    "`Microsoft Azure Quantum <https://azure.microsoft.com/en-us/services/quantum/>`_", "Trapped ions, superconducting qubits, `neutral atoms <https://pennylane.ai/qml/demos/tutorial_pasqal.html>`_"
    "`Oxford Quantum Circuits <https://oxfordquantumcircuits.com>`_", "Superconducting qubits"
-   "`Quandela <https://www.quandela.co/>`_", "Photonics"
-   "`Quantinuum <https://www.honeywell.com/us/en/company/quantum>`_", "Trapped ions"
+   "`Quandela <https://www.quandela.com/>`_", "Photonics"
+   "`Quantinuum <https://www.quantinuum.com/>`_", "Trapped ions"
    "`Quantware <https://www.quantware.eu>`_", "Superconducting qubits"
    "`QuEra <https://www.quera.com>`_", "Neutral atoms"
    "`Rigetti Quantum Cloud Services <https://qcs.rigetti.com/sign-in>`_", "Superconducting qubits"
@@ -213,7 +213,8 @@ Hybrid classical/quantum simulations on classical hardware
    - To mix neural nets (or other classical models) and quantum circuits into hybrid models
    - To exploit the rich functionality and options provided by the :term:`PennyLane` toolkit
 
-:term:`PennyLane` is currently one of the most complete quantum ML toolkits available, covering almost every possible training use case. One of its big strengths is allowing the combination of quantum and classical parts in models, in what is usually referred to as `hybrid` QML. PennyLane integrates smoothly with PyTorch; for example in ``lambeq`` it is possible to use a :py:class:`.PennyLaneModel` in conjunction with a :py:class:`.PytorchTrainer` to perform a wide range of experiments.
+For building hybrid quantum-classical models, ``lambeq`` provides access to the :term:`PennyLane` QML toolkits via the :py:class:`.PennyLaneModel`. :term:`PennyLane` integrates smoothly with PyTorch; for example in ``lambeq`` it is possible to use a :py:class:`.PennyLaneModel` in conjunction with a :py:class:`.PytorchTrainer` to perform a wide range of experiments.
+
 
 .. rubric:: See also:
 

@@ -20,6 +20,6 @@ In more detail:
 
 4. The resulting :term:`string diagram` can be converted into a concrete :term:`quantum circuit` (or a :term:`tensor network` in the case of a "classical" experiment), based on a specific `parameterisation <tutorials/parameterise.ipynb>`_ scheme and concrete choices of :term:`ansätze <ansatz (plural: ansätze)>`. ``lambeq`` features an extensible class hierarchy containing a selection of pre-defined :term:`ansätze <ansatz (plural: ansätze)>`, appropriate for both classical and quantum experiments.
 
-5. Now the output of the pipeline (:term:`quantum circuit` or :term:`tensor network`) is ready to be used for :ref:`training <sec-training>`. Since Release :ref:`rel-0.2.0`, ``lambeq`` provides a detailed hierarchy of model and trainer classes that cover all the important use-cases of supervised learning.
+5. Now the output of the pipeline (:term:`quantum circuit` or :term:`tensor network`) is ready to be used for :ref:`training <sec-training>`. Since Release :ref:`rel-0.2.0`, ``lambeq`` provides a detailed hierarchy of model and trainer classes that cover many of the important use-cases of supervised learning.
 
 In the case of a fully quantum pipeline, the trainer will first process the :term:`quantum circuit` by calling a quantum compiler, and then it will upload the result onto a quantum computer, while in the classical case the :term:`tensor network` will be passed to an ML or optimisation library, such as :term:`PyTorch` or JAX.
