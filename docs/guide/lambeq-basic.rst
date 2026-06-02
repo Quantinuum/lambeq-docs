@@ -15,10 +15,10 @@ lambeq and compositionality
 
 ``lambeq`` is rooted in the formalism of :term:`monoidal categories <monoidal category>` :cite:p:`coecke_2010`, a branch of `category theory` that provides a robust algebraic framework for structuring and reasoning about compositionality. This foundation enables us to model linguistic structures and semantic compositions in a mathematically rigorous yet computationally efficient manner. For this reason, ``lambeq``'s models have some characteristics that differ from traditional statistical approaches.
 
-1. **Scalability to Quantum Computing:** ``lambeq``'s mathematical foundations are compatible with quantum algorithms, where transformations in quantum states can represent semantic composition. ``lambeq`` can be used to encode linguistic structures directly into :term:`quantum circuits <quantum circuit>`, enabling training without reliance on neural networks or other "classical" components.
+1. **Scalability to Quantum Computing:** ``lambeq``'s mathematical foundations are compatible with quantum algorithms, where transformations in quantum states can represent semantic composition. ``lambeq`` can be used to encode linguistic structures directly into :term:`quantum circuits <quantum circuit>`, enabling out-of-the-box training of parameterised quantum circuits.
 2. **Interpretability:** The mathematical operations used to combine meanings are transparent and tied directly to linguistic principles. This can support clearer reasoning about model behaviour and accountability, while also helping with debugging and error analysis.
 3. **Generalisation and flexibility:** The framework is highly abstract, allowing generalization across different types of related data representations (:term:`syntax trees <syntax tree>`, string diagrams, tensor networks, quantum circuits).
-4. **Theoretical depth for linguistic analysis:** The compositional nature of ``lambeq``'s models allows for deeper theoretical insights into linguistic phenomena, bridging gaps between computational linguistics and formal linguistics.
+4. **Connections to formal linguistics:** The compositional nature of ``lambeq``'s models is intended to align computational representations with concepts from formal linguistics, which may help relate model structure to linguistic theory.
 5. **Interdisciplinary applications:** Since compositionality is a fundamental aspect in many other fields (e.g. systems theory, programming languages, bioinformatics, or even human cognition), ``lambeq`` can facilitate interdisciplinary research.
 
 Related research
