@@ -28,11 +28,11 @@ The :py:term:`DisCoCirc` extension introduced in Release :ref:`rel-0.5.0` is des
 .. code-block:: bash
 
    @article{krawchuk2025,
-      title={Efficient {G}eneration of {P}arameterised {Q}uantum {C}ircuits from {L}arge {T}exts,
+      title={Efficient {G}eneration of {P}arameterised {Q}uantum {C}ircuits from {L}arge {T}exts},
       author={Colin Krawchuk
               and Nikhil Khatri
               and Neil John Ortega
-              and Dimitri Kartsaklis
+              and Dimitri Kartsaklis},
       year={2025},
       journal={arXiv preprint arXiv:2505.13208},
    }

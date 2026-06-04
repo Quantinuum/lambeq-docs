@@ -33,7 +33,7 @@ lambeq can be installed with the command:
 pip install lambeq
 ```
 
-The default installation of lambeq includes Bobcat parser, a state-of-the-art statistical parser (see [related paper](https://arxiv.org/abs/2109.10044)) fully integrated with the toolkit.
+The default installation of lambeq includes Bobcat parser, a statistical parser (see [related paper](https://arxiv.org/abs/2109.10044)) fully integrated with the toolkit.
 
 To install lambeq with optional dependencies for extra features, run:
 

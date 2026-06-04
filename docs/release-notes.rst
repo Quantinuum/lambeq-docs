@@ -11,7 +11,7 @@ Release notes
 Added:
 
 - A new experimental :py:mod:`~lambeq.experimental.discocirc` module that contains an efficient :py:class:`~lambeq.experimental.discocirc.DisCoCircReader` and all the required functionality for converting long texts and entire multi-paged documents into quantum circuits, based on the :py:term:`DisCoCirc` framework.
-- A new tree representation of a pregroup diagram, termed :term:`pregroup tree`, is implemented through the :py:class:`~lambeq.text2diagram.pregroup_tree.PregroupTreeNode` class. This lays the groundwork for drastically improving the parsing and internal processing of diagrams.
+- A new tree representation of a pregroup diagram, termed :term:`pregroup tree`, is implemented through the :py:class:`~lambeq.text2diagram.pregroup_tree.PregroupTreeNode` class.
 - A new experimental end-to-end parser class, :py:class:`~lambeq.text2diagram.OncillaParser`, that simplifies the process of generating diagrams from text, minimizing or even eliminating exposure of the user to CCG representations and functionality. This parser utilises the :term:`pregroup tree` representation of diagrams. This does not replace :py:class:`.BobcatParser` as the default parser.
 - A new :py:class:`~lambeq.backend.grammar.Frame` data structure that allows the recursive grouping of ``lambeq`` boxes and diagrams and can be seen as a `quantum supermap` acting on the enclosed arguments. Frames are used in :py:term:`DisCoCirc` diagrams.
 - A new :py:class:`~lambeq.training.PytorchQuantumModel` class that allows Pytorch autograd to be used on quantum circuits, while so far it was possible to use it only on tensor networks (credit: `Kin Ian Lo <https://github.com/kinianlo>`_).
@@ -96,8 +96,8 @@ Added:
 
 Changed:
 
-- An internal refactoring of module :py:mod:`.backend.drawing` in view of planned new features.
-- Updated random number generation in :py:class:`~lambeq.TketModel` by using the recommended :py:meth:`numpy.random.default_rnd` method.
+- An internal refactoring of module :py:mod:`.backend.drawing`.
+- Updated random number generation in :py:class:`~lambeq.TketModel` by using the recommended :py:meth:`numpy.random.default_rng` method.
 
 Fixed:
 
@@ -111,13 +111,13 @@ Fixed:
 
 Added:
 
-- A new integrated backend that replaces :term:`DisCoPy`, which until now was providing the low-level functionality of ``lambeq``. The new backend offers better performance, increased stability, faster training speeds, and a simplified high-level interface to the user. The new backend consists of the following sub-modules:
+- A new integrated backend that replaces :term:`DisCoPy`, which until now was providing the low-level functionality of ``lambeq``. The new backend introduces architectural changes intended to improve performance and stability, and provides a simplified high-level interface to the user. The new backend consists of the following sub-modules:
 
   - :py:mod:`lambeq.backend.grammar`: Contains the building blocks for creating string diagrams.
   - :py:mod:`lambeq.backend.tensor`: Contains the necessary classes to create tensor diagrams.
   - :py:mod:`lambeq.backend.quantum`: Adds quantum-specific functionality to the backend and provides a circuit simulator based on the `TensorNetwork <https://github.com/google/TensorNetwork>`_ library.
   - :py:mod:`lambeq.backend.pennylane`: Interface with PennyLane.
-  - :py:mod:`lambeq.backend.tk`: Inteface with Tket.
+  - :py:mod:`lambeq.backend.tk`: Interface with Tket.
   - :py:mod:`lambeq.backend.numerical_backend`: Common interface for numerical backends (such as Numpy, Jax, PyTorch, TensorFlow)
   - :py:mod:`lambeq.backend.drawing`: Contains drawing functionality for diagrams and circuits.
 
@@ -177,7 +177,7 @@ Added:
 
   - replaced ``discopy.rigid`` with :py:mod:`discopy.grammar.pregroup` everywhere.
   - replaced ``discopy.biclosed`` with :py:mod:`discopy.grammar.categorial` everywhere.
-  - Use ``Diagram.decode`` to account for the change in contructor signature ``Diagram(inside, dom, cod)``.
+  - Use ``Diagram.decode`` to account for the change in constructor signature ``Diagram(inside, dom, cod)``.
   - updated attribute names that were previously hidden, e.g. ``._data`` becomes ``.data``.
   - replaced diagrammatic conjugate with transpose.
   - swapped left and right currying.
@@ -379,9 +379,9 @@ Removed:
 `0.2.0 <https://github.com/CQCL/lambeq/releases/tag/0.2.0>`_
 ------------------------------------------------------------
 
-- A new state-of-the-art CCG parser based on :cite:p:`clark_2021`, fully integrated with ``lambeq``, which replaces depccg as the default parser of the toolkit. The new :term:`Bobcat` parser has better performance, simplifies installation, and provides compatibility with Windows (which was not supported due to a depccg conflict). depccg is still supported as an alternative external dependency.
-- A :py:mod:`.training` package, providing a selection of trainers, models, and optimizers that greatly simplify supervised training for most of ``lambeq``'s use cases, classical and quantum. The new package adds several new features to ``lambeq``, such as the ability to save to and restore models from checkpoints.
-- Furthermore, the :py:mod:`.training` package uses :term:`DisCoPy`'s tensor network capability to contract tensor diagrams efficiently. In particular, :term:`DisCoPy 0.4.1 <DisCoPy>`'s new unitary and density matrix simulators result in substantially faster training speeds compared to the previous version.
+- A new CCG parser based on :cite:p:`clark_2021`, fully integrated with ``lambeq``, which replaces depccg as the default parser of the toolkit. The new :term:`Bobcat` parser simplified installation and added compatibility with Windows (which was not supported due to a depccg conflict). depccg is still supported as an alternative external dependency.
+- A :py:mod:`.training` package, providing a selection of trainers, models, and optimizers for supervised training in many of ``lambeq``'s use cases, classical and quantum. The new package adds several new features to ``lambeq``, such as the ability to save to and restore models from checkpoints.
+- Furthermore, the :py:mod:`.training` package uses :term:`DisCoPy`'s tensor network capability to contract tensor diagrams efficiently. In particular, :term:`DisCoPy 0.4.1 <DisCoPy>` introduced new unitary and density matrix simulators that changed training speed characteristics compared to the previous version.
 - A command-line interface, which provides most of ``lambeq``'s functionality from the command line. For example, ``lambeq`` can now be used as a standard command-line pregroup parser.
 - A web parser class that can send parsing queries to an online API, so that local installation of a parser is not strictly necessary anymore. The web parser is particularly helpful for testing purposes, interactive usage or when a local parser is unavailable, but should not be used for serious experiments.
 - A new :py:mod:`~lambeq.pregroups` package that provides methods for easy creation of pregroup diagrams, removal of cups, and printing of diagrams in text form (i.e. in a terminal).
@@ -391,7 +391,7 @@ Removed:
 - Additional generator methods and minor improvements for the :py:class:`.CCGBankParser` class.
 - Improved and more detailed package structure.
 - Most classes and functions can now be imported from :py:mod:`lambeq` directly, instead of having to import from the sub-packages.
-- The :py:mod:`.circuit` and :py:mod:`.tensor` modules have been combined into an :py:mod:`lambeq.ansatz` package. (However, as mentioned above, the classes and functions they define can now be imported directly from :py:mod:`lambeq` and should continue to do so in future releases.)
+- The :py:mod:`.circuit` and :py:mod:`.tensor` modules have been combined into an :py:mod:`lambeq.ansatz` package. (As noted above, the classes and functions they define can be imported directly from :py:mod:`lambeq`; refer to release notes for API changes.)
 - Improved documentation and additional tutorials.
 
 .. _rel-0.1.2:
