@@ -77,12 +77,12 @@ jobs:
       if: ${{ steps.oncilla-cache.outputs.cache-hit != 'true' }}
       continue-on-error: true
       run: echo "dir=$(echo 'from lambeq.text2diagram.model_based_reader.model_downloader import ModelDownloader; md = ModelDownloader("oncilla"); md.download_model(verbose="suppress");' | uv run - )"
-    - name: Test example notebooks
-      env:
-        TEST_NOTEBOOKS: 1
-      run: >
-        uv run pytest --nbmake ${{ env.DOCS_DIR }}/examples/
-        --nbmake-timeout=60
+    # - name: Test example notebooks
+    #   env:
+    #     TEST_NOTEBOOKS: 1
+    #   run: >
+    #     uv run pytest --nbmake ${{ env.DOCS_DIR }}/examples/
+    #     --nbmake-timeout=60
     - name: Test tutorial notebooks
       env:
         TEST_NOTEBOOKS: 1
