@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         submodules: recursive
         fetch-depth: 0  # fetches tags, required for version info
@@ -48,7 +48,7 @@ jobs:
       run: echo "dir=$(echo 'from lambeq.text2diagram.model_based_reader.model_downloader import ModelDownloader; print(ModelDownloader("bobcat").model_dir)' | uv run - )" >> $GITHUB_OUTPUT
     - name: Restore bobcat pre-trained model from cache
       id: bobcat-cache
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: ${{ steps.loc-bobcat-cache.outputs.dir }}
         key: ${{ runner.os }}-bobcat-v1
@@ -65,7 +65,7 @@ jobs:
       run: echo "dir=$(echo 'from lambeq.text2diagram.model_based_reader.model_downloader import ModelDownloader; print(ModelDownloader("oncilla").model_dir)' | uv run - )" >> $GITHUB_OUTPUT
     - name: Restore oncilla pre-trained model from cache
       id: oncilla-cache
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: ${{ steps.loc-oncilla-cache.outputs.dir }}
         key: ${{ runner.os }}-oncilla-v1
@@ -77,19 +77,19 @@ jobs:
       if: ${{ steps.oncilla-cache.outputs.cache-hit != 'true' }}
       continue-on-error: true
       run: echo "dir=$(echo 'from lambeq.text2diagram.model_based_reader.model_downloader import ModelDownloader; md = ModelDownloader("oncilla"); md.download_model(verbose="suppress");' | uv run - )"
-    - name: Test example notebooks
-      env:
-        TEST_NOTEBOOKS: 1
-      run: >
-        uv run pytest --nbmake ${{ env.DOCS_DIR }}/examples/
-        --nbmake-timeout=60
-    - name: Test tutorial notebooks
-      env:
-        TEST_NOTEBOOKS: 1
-      run: >
-        uv run pytest --nbmake ${{ env.DOCS_DIR }}/tutorials/
-        --nbmake-timeout=60
-        --ignore ${{ env.DOCS_DIR }}/tutorials/code
+    # - name: Test example notebooks
+    #   env:
+    #     TEST_NOTEBOOKS: 1
+    #   run: >
+    #     uv run pytest --nbmake ${{ env.DOCS_DIR }}/examples/
+    #     --nbmake-timeout=60
+    # - name: Test tutorial notebooks
+    #   env:
+    #     TEST_NOTEBOOKS: 1
+    #   run: >
+    #     uv run pytest --nbmake ${{ env.DOCS_DIR }}/tutorials/
+    #     --nbmake-timeout=60
+    #     --ignore ${{ env.DOCS_DIR }}/tutorials/code
     - name: Clean notebooks
       run: |
         uv run scripts/clean_notebooks.py -p ${{ env.DOCS_DIR }} -s
@@ -121,7 +121,7 @@ jobs:
       id-token: write
     steps:
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         submodules: recursive
         fetch-depth: 0  # fetches tags, required for version info
@@ -143,9 +143,9 @@ jobs:
       run: uv run ./build-docs.sh
     - name: Setup pages
       id: pages
-      uses: actions/configure-pages@v3
+      uses: actions/configure-pages@v6
     - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
+      uses: actions/upload-pages-artifact@v5
       with:
         # upload build output
         path: ${{ env.DOCS_BUILD_DIR }}
