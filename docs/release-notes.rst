@@ -5,7 +5,7 @@ Release notes
 
 .. _rel-0.5.0:
 
-`0.5.0 <https://github.com/CQCL/lambeq/releases/tag/0.5.0>`_
+`0.5.0 <https://github.com/quantinuum/lambeq/releases/tag/0.5.0>`_
 ------------------------------------------------------------
 
 Added:
@@ -45,12 +45,12 @@ Fixed:
 
 .. _rel-0.4.3:
 
-`0.4.3 <https://github.com/CQCL/lambeq/releases/tag/0.4.3>`_
+`0.4.3 <https://github.com/quantinuum/lambeq/releases/tag/0.4.3>`_
 ------------------------------------------------------------
 
 Changed:
 
-- Documentation has now been moved to a `dedicated repository <https://github.com/CQCL/lambeq-docs>`_ and got a new URL (https://docs.quantinuum.com/lambeq).
+- Documentation has now been moved to a `dedicated repository <https://github.com/quantinuum/lambeq-docs>`_ and got a new URL (https://docs.quantinuum.com/lambeq).
 - Changed the landing page and some visuals in the online documentation.
 - Updated README to reflect the new docs structure.
 
@@ -60,7 +60,7 @@ Fixed:
 
 .. _rel-0.4.2:
 
-`0.4.2 <https://github.com/CQCL/lambeq/releases/tag/0.4.2>`_
+`0.4.2 <https://github.com/quantinuum/lambeq/releases/tag/0.4.2>`_
 ------------------------------------------------------------
 
 Added:
@@ -83,7 +83,7 @@ Removed:
 
 .. _rel-0.4.1:
 
-`0.4.1 <https://github.com/CQCL/lambeq/releases/tag/0.4.1>`_
+`0.4.1 <https://github.com/quantinuum/lambeq/releases/tag/0.4.1>`_
 ------------------------------------------------------------
 
 Added:
@@ -106,7 +106,7 @@ Fixed:
 
 .. _rel-0.4.0:
 
-`0.4.0 <https://github.com/CQCL/lambeq/releases/tag/0.4.0>`_
+`0.4.0 <https://github.com/quantinuum/lambeq/releases/tag/0.4.0>`_
 ------------------------------------------------------------
 
 Added:
@@ -141,16 +141,16 @@ Removed:
 
 .. _rel-0.3.3:
 
-`0.3.3 <https://github.com/CQCL/lambeq/releases/tag/0.3.3>`_
+`0.3.3 <https://github.com/quantinuum/lambeq/releases/tag/0.3.3>`_
 ------------------------------------------------------------
 This update features contributions from participants in `unitaryHACK 2023 <https://unitaryhack.dev/>`_:
 
 - Two new optimisers:
 
-  - The Nelder-Mead optimiser. (credit: `Gopal Dahale <https://github.com/CQCL/lambeq/pull/104>`_)
-  - The Rotosolve optimiser. (credit: `Ahmed Darwish <https://github.com/CQCL/lambeq/pull/93>`_)
+  - The Nelder-Mead optimiser. (credit: `Gopal Dahale <https://github.com/quantinuum/lambeq/pull/104>`_)
+  - The Rotosolve optimiser. (credit: `Ahmed Darwish <https://github.com/quantinuum/lambeq/pull/93>`_)
 
-- A new rewrite rule for handling unknown words. (credit: `WingCode <https://github.com/CQCL/lambeq/pull/105>`_)
+- A new rewrite rule for handling unknown words. (credit: `WingCode <https://github.com/quantinuum/lambeq/pull/105>`_)
 
 Many thanks to all who participated.
 
@@ -158,7 +158,7 @@ This update also contains the following changes:
 
 Added:
 
-- :py:class:`~lambeq.DiagramRewriter` is a new class that rewrites diagrams by looking at the diagram as a whole rather than by using rewrite rules on individual boxes. This includes an example :py:class:`~lambeq.UnifyCodomainRewriter` which adds an extra box to the end of diagrams to change the output to a specified type. (credit: `A.C.E07 <https://github.com/CQCL/lambeq/pull/111>`_)
+- :py:class:`~lambeq.DiagramRewriter` is a new class that rewrites diagrams by looking at the diagram as a whole rather than by using rewrite rules on individual boxes. This includes an example :py:class:`~lambeq.UnifyCodomainRewriter` which adds an extra box to the end of diagrams to change the output to a specified type. (credit: `A.C.E07 <https://github.com/quantinuum/lambeq/pull/111>`_)
 - Added an early stopping mechanism to :py:class:`~lambeq.Trainer` using the parameter ``early_stopping_interval``.
 
 Fixed:
@@ -168,12 +168,12 @@ Fixed:
 
 .. _rel-0.3.2:
 
-`0.3.2 <https://github.com/CQCL/lambeq/releases/tag/0.3.2>`_
+`0.3.2 <https://github.com/quantinuum/lambeq/releases/tag/0.3.2>`_
 ------------------------------------------------------------
 
 Added:
 
-- Support for :term:`DisCoPy` >= 1.1.4 (credit: `toumix <https://github.com/CQCL/lambeq/pull/89>`_).
+- Support for :term:`DisCoPy` >= 1.1.4 (credit: `toumix <https://github.com/quantinuum/lambeq/pull/89>`_).
 
   - replaced ``discopy.rigid`` with :py:mod:`discopy.grammar.pregroup` everywhere.
   - replaced ``discopy.biclosed`` with :py:mod:`discopy.grammar.categorial` everywhere.
@@ -200,7 +200,7 @@ Fixed:
 - Documentation: enabled sphinxcontrib.jquery extension for Read the Docs theme.
 - Fixed disentangling ``RealAnsatz`` in extend-lambeq tutorial notebook.
 - Fixed model loading in PennyLane notebooks.
-- Fixed typo in :py:class:`~lambeq.SPSAOptimizer` (credit: `Gopal-Dahale <https://github.com/CQCL/lambeq/pull/102>`_)
+- Fixed typo in :py:class:`~lambeq.SPSAOptimizer` (credit: `Gopal-Dahale <https://github.com/quantinuum/lambeq/pull/102>`_)
 
 Removed:
 
@@ -208,7 +208,7 @@ Removed:
 
 .. _rel-0.3.1:
 
-`0.3.1 <https://github.com/CQCL/lambeq/releases/tag/0.3.1>`_
+`0.3.1 <https://github.com/quantinuum/lambeq/releases/tag/0.3.1>`_
 ------------------------------------------------------------
 
 Changed:
@@ -224,7 +224,7 @@ Fixed:
 
 .. _rel-0.3.0:
 
-`0.3.0 <https://github.com/CQCL/lambeq/releases/tag/0.3.0>`_
+`0.3.0 <https://github.com/quantinuum/lambeq/releases/tag/0.3.0>`_
 ------------------------------------------------------------
 
 Added:
@@ -256,7 +256,7 @@ Removed:
 
 .. _rel-0.2.8:
 
-`0.2.8 <https://github.com/CQCL/lambeq/releases/tag/0.2.8>`_
+`0.2.8 <https://github.com/quantinuum/lambeq/releases/tag/0.2.8>`_
 ------------------------------------------------------------
 
 Changed:
@@ -271,12 +271,12 @@ Fixed:
 
 .. _rel-0.2.7:
 
-`0.2.7 <https://github.com/CQCL/lambeq/releases/tag/0.2.7>`_
+`0.2.7 <https://github.com/quantinuum/lambeq/releases/tag/0.2.7>`_
 ------------------------------------------------------------
 
 Added:
 
-- Added support for Japanese to :py:class:`.DepCCGParser` (credit: `KentaroAOKI <https://github.com/CQCL/lambeq/pull/24>`_).
+- Added support for Japanese to :py:class:`.DepCCGParser` (credit: `KentaroAOKI <https://github.com/quantinuum/lambeq/pull/24>`_).
 - Overhauled the :py:class:`.CircuitAnsatz` interface, and added three new :term:`ansätze <ansatz (plural: ansätze)>`.
 - Added helper methods to :py:class:`.CCGTree` to get the children of a tree.
 - Added a new :py:meth:`.TreeReader.tree2diagram` method to :py:class:`.TreeReader`, extracted from :py:meth:`.TreeReader.sentence2diagram`.
@@ -310,7 +310,7 @@ Removed:
 
 .. _rel-0.2.6:
 
-`0.2.6 <https://github.com/CQCL/lambeq/releases/tag/0.2.6>`_
+`0.2.6 <https://github.com/quantinuum/lambeq/releases/tag/0.2.6>`_
 ------------------------------------------------------------
 
 - Added a strict pregroups mode to the CLI. With this mode enabled, all swaps are removed from the output string diagrams by changing the ordering of the atomic types, converting them into a valid :term:`pregroup <pregroup grammar>` form as given in :cite:p:`lambek_1999`.
@@ -319,7 +319,7 @@ Removed:
 
 .. _rel-0.2.5:
 
-`0.2.5 <https://github.com/CQCL/lambeq/releases/tag/0.2.5>`_
+`0.2.5 <https://github.com/quantinuum/lambeq/releases/tag/0.2.5>`_
 ------------------------------------------------------------
 
 - Added a "swapping" unary rule box to handle unary rules that change the direction of composition, improving the coverage of the :py:class:`~lambeq.BobcatParser`.
@@ -332,7 +332,7 @@ Removed:
 
 .. _rel-0.2.4:
 
-`0.2.4 <https://github.com/CQCL/lambeq/releases/tag/0.2.4>`_
+`0.2.4 <https://github.com/quantinuum/lambeq/releases/tag/0.2.4>`_
 ------------------------------------------------------------
 
 - Fix a bug that caused the :py:class:`~lambeq.BobcatParser` and the :py:class:`~lambeq.WebParser` to trigger an SSL certificate error using Windows.
@@ -341,7 +341,7 @@ Removed:
 
 .. _rel-0.2.3:
 
-`0.2.3 <https://github.com/CQCL/lambeq/releases/tag/0.2.3>`_
+`0.2.3 <https://github.com/quantinuum/lambeq/releases/tag/0.2.3>`_
 ------------------------------------------------------------
 
 - Fix a bug that raised a ``dtype`` error when using the :py:class:`~lambeq.TketModel` on Windows.
@@ -355,7 +355,7 @@ Removed:
 
 .. _rel-0.2.2:
 
-`0.2.2 <https://github.com/CQCL/lambeq/releases/tag/0.2.2>`_
+`0.2.2 <https://github.com/quantinuum/lambeq/releases/tag/0.2.2>`_
 ------------------------------------------------------------
 
 - Add support for Python 3.10.
@@ -367,7 +367,7 @@ Removed:
 
 .. _rel-0.2.1:
 
-`0.2.1 <https://github.com/CQCL/lambeq/releases/tag/0.2.1>`_
+`0.2.1 <https://github.com/quantinuum/lambeq/releases/tag/0.2.1>`_
 ------------------------------------------------------------
 
 - A new :py:class:`.Checkpoint` class that implements pickling and file operations from the :py:class:`.Trainer` and :py:class:`.Model`.
@@ -376,7 +376,7 @@ Removed:
 
 .. _rel-0.2.0:
 
-`0.2.0 <https://github.com/CQCL/lambeq/releases/tag/0.2.0>`_
+`0.2.0 <https://github.com/quantinuum/lambeq/releases/tag/0.2.0>`_
 ------------------------------------------------------------
 
 - A new CCG parser based on :cite:p:`clark_2021`, fully integrated with ``lambeq``, which replaces depccg as the default parser of the toolkit. The new :term:`Bobcat` parser simplified installation and added compatibility with Windows (which was not supported due to a depccg conflict). depccg is still supported as an alternative external dependency.
@@ -396,7 +396,7 @@ Removed:
 
 .. _rel-0.1.2:
 
-`0.1.2 <https://github.com/CQCL/lambeq/releases/tag/0.1.2>`_
+`0.1.2 <https://github.com/quantinuum/lambeq/releases/tag/0.1.2>`_
 ------------------------------------------------------------
 
 - Add URLs to the setup file.
@@ -406,7 +406,7 @@ Removed:
 
 .. _rel-0.1.1:
 
-`0.1.1 <https://github.com/CQCL/lambeq/releases/tag/0.1.1>`_
+`0.1.1 <https://github.com/quantinuum/lambeq/releases/tag/0.1.1>`_
 ------------------------------------------------------------
 
 - Update install script to use PyPI package.
@@ -419,7 +419,7 @@ Removed:
 
 .. _rel-0.1.0:
 
-`0.1.0 <https://github.com/CQCL/lambeq/releases/tag/0.1.0>`_
+`0.1.0 <https://github.com/quantinuum/lambeq/releases/tag/0.1.0>`_
 ------------------------------------------------------------
 
 The initial release of ``lambeq``, containing a lot of core material. Main features:

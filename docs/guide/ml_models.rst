@@ -148,7 +148,7 @@ The :py:class:`.PytorchModel` is capable of combining tensor networks and neural
          preds = self.get_diagram_output(input)  # performs tensor contraction
          return self.net(preds)
 
-To simplify training, the :py:class:`.PytorchModel` can be used with the :py:class:`.PytorchTrainer`. A comprehensive tutorial can be found `here <tutorials/trainer-classical.ipynb>`_.
+To simplify training, the :py:class:`.PytorchModel` can be used with the :py:class:`.PytorchTrainer`. A comprehensive tutorial can be found :doc:`here </tutorials/trainer-classical>`.
 
 .. note::
 

@@ -165,7 +165,7 @@ After obtaining satisfactory simulation results, an optional next step is to eva
    "`IBM Quantum <https://quantum-computing.ibm.com>`_", "Superconducting qubits"
    "`IonQ Cloud access <https://ionq.com/get-started/#cloud-access>`_", "Trapped ions"
    "`IQM <https://www.meetiqm.com/>`_", "Superconducting qubits"
-   "`Microsoft Azure Quantum <https://azure.microsoft.com/en-us/services/quantum/>`_", "Trapped ions, superconducting qubits, `neutral atoms <https://pennylane.ai/qml/demos/tutorial_pasqal.html>`_"
+   "`Microsoft Azure Quantum <https://azure.microsoft.com/en-us/solutions/quantum-computing/>`_", "Trapped ions, superconducting qubits, `neutral atoms <https://pennylane.ai/qml/demos/tutorial_pasqal.html>`_"
    "`Oxford Quantum Circuits <https://oxfordquantumcircuits.com>`_", "Superconducting qubits"
    "`Quandela <https://www.quandela.com/>`_", "Photonics"
    "`Quantinuum <https://www.quantinuum.com/>`_", "Trapped ions"

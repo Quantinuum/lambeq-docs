@@ -16,15 +16,15 @@ Accepted contributions are typically included in a subsequent official release, 
 Opening a pull request
 ----------------------
 
-If you have an already implemented and tested proposal, you can `open a pull request <https://github.com/CQCL/lambeq/pulls>`_ that will be reviewed by ``lambeq``'s development team. Keep in mind the following guidelines:
+If you have an already implemented and tested proposal, you can `open a pull request <https://github.com/quantinuum/lambeq/pulls>`_ that will be reviewed by ``lambeq``'s development team. Keep in mind the following guidelines:
 
 - Please provide a detailed description of your proposal, supporting it with references to publications or other material when appropriate. Suggestions for untested or ad-hoc components whose motivation is not well-defined cannot be accepted. If you are not sure about your idea, it would be preferable to contact the development team and discuss it or :ref:`open an issue <open-issue>` before opening a pull request.
 
-- Examine the `existing code <https://github.com/CQCL/lambeq/tree/main/lambeq>`_ and try to apply the same conventions for styling, formatting, and documenting in your pull request. In general, we try to follow the standard `PEP-8 Python Style Guide <https://www.python.org/dev/peps/pep-0008/>`_ - if you are not familiar with it please have a look before opening a pull request. Docstrings use the `numpydoc conventions <https://numpydoc.readthedocs.io/en/latest/>`_.
+- Examine the `existing code <https://github.com/quantinuum/lambeq/tree/main/lambeq>`_ and try to apply the same conventions for styling, formatting, and documenting in your pull request. In general, we try to follow the standard `PEP-8 Python Style Guide <https://www.python.org/dev/peps/pep-0008/>`_ - if you are not familiar with it please have a look before opening a pull request. Docstrings use the `numpydoc conventions <https://numpydoc.readthedocs.io/en/latest/>`_.
 
 - The signatures of all methods (public or private) need to be `type-annotated`. Please refer to the `Python typing module <https://docs.python.org/3/library/typing.html>`_ for more information.
 
-- Try to accompany any proposed new functionality with a set of appropriate tests. The test coverage of ``lambeq`` is close to 100% and we would like to keep it that way. Please have a look at the `existing tests <https://github.com/CQCL/lambeq/tree/main/tests>`_ to get an idea about the conventions we use, or contact the dev team for guidance.
+- Try to accompany any proposed new functionality with a set of appropriate tests. The test coverage of ``lambeq`` is close to 100% and we would like to keep it that way. Please have a look at the `existing tests <https://github.com/quantinuum/lambeq/tree/main/tests>`_ to get an idea about the conventions we use, or contact the dev team for guidance.
 
 Trivial contributions
 ---------------------
@@ -46,7 +46,7 @@ As mentioned above, any contribution that genuinely improves the state of the co
 Opening an issue
 ----------------
 
-If you have a question, proposal, or request related to ``lambeq``, please `open an issue <https://github.com/CQCL/lambeq/issues>`_ or send an email to lambeq-support@quantinuum.com. Keep an eye on the issues you have opened, and be sure to answer any questions from the developers to help them understand better the case. Issues that remain inactive for more than a week without an apparent reason will be marked as stale and eventually will be closed.
+If you have a question, proposal, or request related to ``lambeq``, please `open an issue <https://github.com/quantinuum/lambeq/issues>`_ or send an email to lambeq-support@quantinuum.com. Keep an eye on the issues you have opened, and be sure to answer any questions from the developers to help them understand better the case. Issues that remain inactive for more than a week without an apparent reason will be marked as stale and eventually will be closed.
 
 Code of conduct
 ---------------

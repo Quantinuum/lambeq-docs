@@ -48,4 +48,4 @@ In this section, we examine the sequence of steps involved in processing and ana
 
 In the following sections, we will focus on some important text pre-processing concepts and techniques.
 
-.. [#f1] This tutorial has been created with the help of `ChatGPT <https://openai.com/blog/chatgpt>`_.
+.. [#f1] This tutorial has been created with the help of `ChatGPT <https://openai.com/index/chatgpt/>`_.
