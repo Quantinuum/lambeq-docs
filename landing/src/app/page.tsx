@@ -109,7 +109,7 @@ export default function Home() {
               className="-mt-px flex-grow py-[1.38rem] border-border border bg-background"
               asChild
             >
-              <NextLink href="https://github.com/CQCL/lambeq/">
+              <NextLink href="https://github.com/quantinuum/lambeq/">
                 <FaGithub className="mr-2 h-6 w-6"></FaGithub>
                 GitHub
               </NextLink>
