@@ -1,6 +1,13 @@
+[project]
+name = "lambeq-docs"
+version = "0.5.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.13"
+
 [tool.uv]
 dev-dependencies = [
-    "lambeq[extras,test,experimental]>=0.4.2",
+    "lambeq[extras,test,experimental]>=0.5.0",
     "nbformat~=5.7.3",
     "myst-nb==1.1.*",
     "numpydoc~=1.5.0",
@@ -13,11 +20,11 @@ dev-dependencies = [
     "sphinxcontrib-bibtex~=2.6.3",
     "nbmake>=1.5.4",
     "pip>=24.2",
-    "qiskit<1",
+    "qiskit~=2.0.0",
     "pytket-qiskit>=0.48.0",
     "qiskit-ibm-runtime>=0.17.0",
     "sphinxcontrib-googleanalytics==0.4",
-    "pytket~=1.31.0",
+    "pytket~=2.0.0",
 ]
 
 [tool.uv.workspace]
