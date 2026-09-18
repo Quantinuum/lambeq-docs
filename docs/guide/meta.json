@@ -1,0 +1,14 @@
+{
+  "title": "User guide",
+  "pages": [
+    "lambeq-basic",
+    "pipeline",
+    "string-diagrams",
+    "parsing",
+    "ml_lambeq",
+    "ml_basic",
+    "ml_use-cases",
+    "ml_models",
+    "cli"
+  ]
+}

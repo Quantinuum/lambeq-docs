@@ -1,0 +1,14 @@
+{
+  "/lambeq/api/lambeq.backend/grammar": "grammar",
+  "/lambeq/api/lambeq.backend/tensor": "tensor",
+  "/lambeq/api/lambeq.backend/quantum": "quantum",
+  "/lambeq/api/lambeq.backend/numerical_backend": "numerical_backend",
+  "/lambeq/api/lambeq.backend/converters.discopy": "converters.discopy",
+  "/lambeq/api/lambeq.backend/converters.tk": "converters.tk",
+  "/lambeq/api/lambeq.backend/pennylane": "pennylane",
+  "/lambeq/api/lambeq.backend/drawing": "drawing",
+  "/lambeq/api/lambeq.backend/snake_removal": "snake_removal",
+  "/lambeq/api/lambeq.core/globals": "globals",
+  "/lambeq/api/lambeq.core/types": "types",
+  "/lambeq/api/lambeq.core/utils": "utils"
+}

@@ -1,0 +1,199 @@
+---
+title: "Choosing a model"
+---
+
+The following sections provide more information on the various models.
+
+## NumpyModel 
+
+A [`NumpyModel`](/lambeq/api/lambeq.training#lambeq.training.NumpyModel) uses the unitary and density matrix simulators in the low-level `backend`, which convert quantum circuits into a tensor network. The resulting tensor network is efficiently contracted using `opt_einsum`.
+
+Circuits containing only [`Bra`](/lambeq/api/lambeq.backend/quantum#lambeq.backend.quantum.Bra), [`Ket`](/lambeq/api/lambeq.backend/quantum#lambeq.backend.quantum.Ket) and unitary gates are evaluated using a unitary simulator, while circuits containing [`Encode`](/lambeq/api/lambeq.backend/quantum#lambeq.backend.quantum.Encode), [`Measure`](/lambeq/api/lambeq.backend/quantum#lambeq.backend.quantum.Measure) or [`Discard`](/lambeq/api/lambeq.backend/quantum#lambeq.backend.quantum.Discard) are evaluated using a density matrix simulator.
+
+<Callout type="info">
+
+Note that the unitary simulator converts a circuit with `n` output qubits into a tensor of shape `(2, ) * n`, while the density matrix simulator converts a circuit with `n` output qubits and `m` output bits into a tensor of shape `(2, ) * (2 * n + m)`.
+
+</Callout>
+
+In the common use case of using a `stairs_reader` or a [`TreeReader`](/lambeq/api/lambeq.text2diagram#lambeq.text2diagram.TreeReader) with discarding for binary classification, the process involves measuring ([`Measure`](/lambeq/api/lambeq.backend/quantum#lambeq.backend.quantum.Measure)) one of the \"open\" qubits, and discarding ([`Discard`](/lambeq/api/lambeq.backend/quantum#lambeq.backend.quantum.Discard)) the rest of them.
+
+One advantage that the [`NumpyModel`](/lambeq/api/lambeq.training#lambeq.training.NumpyModel) has over the [`TketModel`](/lambeq/api/lambeq.training#lambeq.training.TketModel) is that it supports the just-in-time (jit) compilation provided by the library `jax`. This may be able to speed up the model\'s diagram evaluation. The [`NumpyModel`](/lambeq/api/lambeq.training#lambeq.training.NumpyModel) with `jit` mode enabled can be instantiated with the following command:
+
+``` python
+from lambeq import NumpyModel
+
+model = NumpyModel.from_diagrams(circuits, use_jit=True)
+```
+
+<Callout type="info">
+
+Using the [`NumpyModel`](/lambeq/api/lambeq.training#lambeq.training.NumpyModel) with `jit` mode enabled is not recommended for large models, as it requires a large amount of memory to store the pre-compiled functions for each circuit.
+
+</Callout>
+
+To use the [`NumpyModel`](/lambeq/api/lambeq.training#lambeq.training.NumpyModel) with `jit` mode, you need to install `lambeq` with the extra packages by running the following command:
+
+``` bash
+pip install lambeq[extras]
+```
+
+<Callout type="info">
+
+To enable GPU support for `jax`, follow the installation instructions on the [JAX GitHub repository](https://github.com/google/jax#installation).
+
+</Callout>
+
+[`NumpyModel`](/lambeq/api/lambeq.training#lambeq.training.NumpyModel) should be used with the [`QuantumTrainer`](/lambeq/api/lambeq.training#lambeq.training.QuantumTrainer).
+
+**See also the following use cases:**
+
+- [Exact (non shot-based) simulation of quantum circuits on classical hardware](/lambeq/guide/ml_use-cases/#exact-non-shot-based-simulation-of-quantum-circuits-on-classical-hardware)
+
+## PennyLaneModel 
+
+[`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) uses [PennyLane](/lambeq/glossary/#term-pennylane) and [PyTorch](/lambeq/glossary/#term-pytorch) to allow classical-quantum machine learning experiments. With `probabilities=False`, [`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) performs a state vector simulation, while with `probabilities=True` it performs a probability simulation. The state vector and probability simulations correspond to unitary and density matrix simulations.
+
+To run the model on real quantum hardware, `probabilities=True` must be used, so that the `lambeq` circuits are optimized using the parameter-shift rule to calculate the gradients.
+
+[`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) can be used to optimize simulated circuits using exact backpropagation with PyTorch, which may give improved results over using [`NumpyModel`](/lambeq/api/lambeq.training#lambeq.training.NumpyModel) with [`SPSAOptimizer`](/lambeq/api/lambeq.training#lambeq.training.SPSAOptimizer). However, this optimization process is not possible on real quantum hardware, so for more realistic results the parameter-shift rule should be preferred.
+
+To construct a hybrid model that passes the output of a circuit through a classical neural network, it is only necessary to subclass [`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) and modify the `__init__` method to store the classical PyTorch parameters, and the [`forward`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel.forward) method to pass the result of [`get_diagram_output`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel.get_diagram_output) to the neural network. For example:
+
+``` python
+import torch
+from lambeq import PennyLaneModel
+
+class MyCustomModel(PennyLaneModel):
+   def __init__(self, **kwargs):
+      super().__init__(**kwargs)
+      self.net = torch.nn.Linear(2, 2)
+
+   def forward(self, input):
+      preds = self.get_diagram_output(input)
+      return self.net(preds)
+```
+
+This neural net can be real- or complex-valued, though this affects the non-linearities that can be used.
+
+[`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) can be used with the [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer), or a standard PyTorch training loop.
+
+By using different backend configurations, [`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) can be used for several different use-cases, listed below:
+
+<a id="tbl-plane-usecases" />
+<table><caption>Backend configurations for different use cases.</caption><colgroup><col style={{ "width": "33%" }} /><col style={{ "width": "66%" }} /></colgroup><thead><tr><th>Use case</th><th>Configurations</th></tr></thead><tbody><tr><td>Exact non <a href="/lambeq/glossary/#term-shots">shot-based</a> simulation with state outputs</td><td><code>&#123;'backend': 'default.qubit', 'probabilities': False&#125;</code></td></tr><tr><td>Exact non shot-based simulation with probability outputs</td><td><code>&#123;'backend': 'default.qubit', 'probabilities': True&#125;</code></td></tr><tr><td>Noiseless shot-based simulation</td><td><code>&#123;'backend': 'default.qubit', 'shots': 1000, 'probabilities': True&#125;</code></td></tr><tr><td>Noisy shot-based simulation on local hardware</td><td><code>&#123;'backend': 'qiskit.aer', 'noise_model': my_noise_model, 'shots': 1000, 'probabilities': True&#125;</code>, where <code>my_noise_model</code> is an AER <code>NoiseModel</code>.</td></tr><tr><td>Noisy shot-based simulation on cloud-based emulators</td><td><div className="line-block"><code>&#123;'backend': 'qiskit.ibmq', 'device': 'ibmq_qasm_simulator', 'shots': 1000, 'probabilities': True&#125;</code><br /><code>&#123;'backend': 'honeywell.hqs', 'device': 'H1-1E', 'shots': 1000, 'probabilities': True&#125;</code> (or with <code>'device': 'H1-2E'</code>)</div></td></tr><tr><td>Evaluation of quantum circuits on a quantum computer</td><td><div className="line-block"><code>&#123;'backend': 'qiskit.ibmq', 'device': 'ibmq_hardware_device', 'shots': 1000, 'probabilities': True&#125;</code>, where <code>ibmq_hardware_device</code> is one that you have access to via your IBMQ account.<br /><code>&#123;'backend': 'honeywell.hqs', 'device': 'H1', 'shots': 1000, 'probabilities': True&#125;</code> (or with <code>'device': 'H1-1'</code> or <code>'device': 'H1-2'</code>)</div></td></tr></tbody></table>
+
+All of these backends are compatible with hybrid quantum-classical models. Note that using quantum hardware or cloud-based emulators are much slower than local simulations.
+
+**See also the following use cases:**
+
+- [Exact (non shot-based) simulation of quantum circuits on classical hardware](/lambeq/guide/ml_use-cases/#exact-non-shot-based-simulation-of-quantum-circuits-on-classical-hardware)
+- [Shot-based simulation of quantum circuits on classical hardware](/lambeq/guide/ml_use-cases/#shot-based-simulation-of-quantum-circuits-on-classical-hardware)
+- [Evaluation of quantum circuits on a quantum computer](/lambeq/guide/ml_use-cases/#evaluation-of-quantum-circuits-on-a-quantum-computer)
+- [Hybrid classical/quantum simulations on classical hardware](/lambeq/guide/ml_use-cases/#hybrid-classicalquantum-simulations-on-classical-hardware)
+
+## PytorchModel 
+
+[`PytorchModel`](/lambeq/api/lambeq.training#lambeq.training.PytorchModel) is the right choice for classical experiments. Here, string diagrams are treated as tensor networks, where boxes represent tensors and edges define the specific tensor contractions. Tensor contractions are optimised by the Python package `opt_einsum`.
+
+To prepare the diagrams for the computation, we use a [`TensorAnsatz`](/lambeq/api/lambeq.ansatz#lambeq.ansatz.TensorAnsatz) that converts a pregroup diagram into a tensor diagram. Subclasses of [`TensorAnsatz`](/lambeq/api/lambeq.ansatz#lambeq.ansatz.TensorAnsatz) include the [`SpiderAnsatz`](/lambeq/api/lambeq.ansatz#lambeq.ansatz.SpiderAnsatz) and the [`MPSAnsatz`](/lambeq/api/lambeq.ansatz#lambeq.ansatz.MPSAnsatz), which reduce the size of large tensors by splitting them into chains of many smaller boxes. To prepare a tensor diagram for a sentence, for example:
+
+``` python
+from lambeq import AtomicType, BobcatParser, TensorAnsatz
+from lambeq.backend.tensor import Dim
+
+parser = BobcatParser()
+pregroup_diagram = parser.sentence2diagram('This is a tensor network.')
+
+ansatz = TensorAnsatz({AtomicType.NOUN: Dim(2), AtomicType.SENTENCE: Dim(4)})
+tensor_diagram = ansatz(pregroup_diagram)
+```
+
+After preparing a list of tensor diagrams, we can initialise the model through:
+
+``` python
+from lambeq import PytorchModel
+
+model = PytorchModel.from_diagrams(tensor_diagrams)
+```
+
+The [`PytorchModel`](/lambeq/api/lambeq.training#lambeq.training.PytorchModel) is capable of combining tensor networks and neural network architectures. For example, it is possible to feed the output of a tensor diagram into a neural network, by subclassing and modifying the `forward` method:
+
+``` python
+import torch
+from lambeq import PytorchModel
+
+class MyCustomModel(PytorchModel):
+   def __init__(self):
+      super().__init__()
+      self.net = torch.nn.Linear(2, 2)
+
+   def forward(self, input):
+      """define a custom forward pass here"""
+      preds = self.get_diagram_output(input)  # performs tensor contraction
+      return self.net(preds)
+```
+
+To simplify training, the [`PytorchModel`](/lambeq/api/lambeq.training#lambeq.training.PytorchModel) can be used with the [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer). A comprehensive tutorial can be found [here](/lambeq/tutorials/trainer-classical/).
+
+<Callout type="info">
+
+The loss function and the accuracy metric in the tutorial are defined for two-dimensional binary labels: `[[1,0], [0,1], ...]`. If your data has a different structure, you must implement your custom loss function and evaluation metrics.
+
+</Callout>
+
+**See also the following use cases:**
+
+- [Evaluation of classical tensor-based models](/lambeq/guide/ml_use-cases/#evaluation-of-classical-tensor-based-models)
+
+## PytorchQuantumModel 
+
+The PyTorch backend in `lambeq` can be also used with quantum circuits for exact simulations. In this case, the quantum circuit is converted into a tensor network similar to how the [NumpyModel](/lambeq/guide/ml_models/#numpymodel) works, which is tensor-contracted to return the result. Compared to [`NumpyModel`](/lambeq/api/lambeq.training#lambeq.training.NumpyModel), the [`PytorchQuantumModel`](/lambeq/api/lambeq.training#lambeq.training.PytorchQuantumModel) has the advantage of using Pytorch\'s advanced autograd features and efficient optimisers such as Adam, allowing for fast and reliable training of quantum circuits.
+
+<Callout type="info">
+
+Note that the [`PytorchQuantumModel`](/lambeq/api/lambeq.training#lambeq.training.PytorchQuantumModel) makes use of the standard PyTorch library, and is not based in any quantum-specific PyTorch variation, such as [TorchQuantum](https://github.com/mit-han-lab/torchquantum).
+
+</Callout>
+
+**See also the following use cases:**
+
+- [Exact (non shot-based) simulation of quantum circuits on classical hardware](/lambeq/guide/ml_use-cases/#exact-non-shot-based-simulation-of-quantum-circuits-on-classical-hardware)
+
+## TketModel 
+
+[`TketModel`](/lambeq/api/lambeq.training#lambeq.training.TketModel) uses `pytket` to retrieve shot-based results from a quantum computer, then uses the shot counts to build the resulting tensor.
+
+The `AerBackend` can be used with [`TketModel`](/lambeq/api/lambeq.training#lambeq.training.TketModel) to perform a noisy, architecture-aware simulation of an IBM machine. Other backends supported by `pytket` can also be used. To run an experiment on a real quantum computer, for example:
+
+``` python
+from lambeq import TketModel
+from pytket.extensions.quantinuum import QuantinuumBackend
+
+machine = 'H1-1E'
+backend = QuantinuumBackend(device_name=machine)
+backend.login()
+
+backend_config = {
+ 'backend': backend,
+ 'compilation': backend.default_compilation_pass(2),
+ 'shots': 2048
+}
+
+model = TketModel.from_diagrams(all_circuits, backend_config=backend_config)
+```
+
+<Callout type="info">
+
+Note that you need user accounts and allocated resources to run experiments on real machines. However, [IBM Quantum](https://quantum-computing.ibm.com/) provides some limited resources for free.
+
+</Callout>
+
+For initial experiments we recommend using a [`NumpyModel`](/lambeq/api/lambeq.training#lambeq.training.NumpyModel), as it performs noiseless simulations and is orders of magnitude faster.
+
+[`TketModel`](/lambeq/api/lambeq.training#lambeq.training.TketModel) should be used with the [`QuantumTrainer`](/lambeq/api/lambeq.training#lambeq.training.QuantumTrainer).
+
+**See also the following use cases:**
+
+- [Shot-based simulation of quantum circuits on classical hardware](/lambeq/guide/ml_use-cases/#shot-based-simulation-of-quantum-circuits-on-classical-hardware)
+- [Evaluation of quantum circuits on a quantum computer](/lambeq/guide/ml_use-cases/#evaluation-of-quantum-circuits-on-a-quantum-computer)

@@ -1,0 +1,45 @@
+---
+title: "String diagrams"
+---
+
+## Motivation and connection to tensor networks
+
+\"Programming\" a quantum computer requires from developers the ability to manipulate [quantum gates](/lambeq/glossary/#term-quantum-gate) (which can be seen as the \"atomic\" units of computation in this paradigm) in order to create [quantum circuits](/lambeq/glossary/#term-quantum-circuit), which can be further grouped into higher-order constructions. Working at such a low level compares to writing assembly in a classical computer, and can be challenging for humans \-- especially on [NLP](/lambeq/glossary/#term-natural-language-processing-nlp) tasks which contain many levels of abstractions.
+
+In order to simplify [NLP](/lambeq/glossary/#term-natural-language-processing-nlp) design on quantum hardware, `lambeq` represents sentences as [string diagrams](/lambeq/glossary/#term-string-diagram) ([Fig. 1](/lambeq/guide/string-diagrams/#fig-stringdiagram)). This choice stems from the fact that a [string diagram](/lambeq/glossary/#term-string-diagram) expresses computations in a [monoidal category](/lambeq/tutorials/monoidal/#monoidal-categories), an abstraction well-suited to model the way a quantum computer works and processes data.
+
+From a more practical point of view, a [string diagram](/lambeq/glossary/#term-string-diagram) can be seen as an enriched [tensor network](/lambeq/glossary/#term-tensor-network), a mathematical structure with many applications in quantum physics. Compared to tensor networks, string diagrams have some additional convenient properties, for example, they respect the order of words, and allow easy rewriting/modification of their structure.
+
+<a id="fig-stringdiagram" />
+<figure style={{ "display": "flex", "flexDirection": "column", "alignItems": "center", "textAlign": "center" }}><img src="/lambeq-assets/_static/images/string_diagram.png" alt="../_static/images/string_diagram.png" /><figcaption>String diagram (a) and corresponding tensor network (b).</figcaption></figure>
+
+[String diagrams](/lambeq/glossary/#term-string-diagram) and [tensor networks](/lambeq/glossary/#term-tensor-network) provide a useful abstract representation of the compositional relations between the words in a sentence, in the sense that they remain close to [quantum circuits](/lambeq/glossary/#term-quantum-circuit), yet are independent of any low-level decisions (such as choice of [quantum gates](/lambeq/glossary/#term-quantum-gate) and construction of circuits representing words and sentences) that might vary depending on design choices and the type of quantum hardware that the experiment is running on.
+
+## Pregroup grammars 
+
+`lambeq`\'s string diagrams are equipped with types, which show the interactions between the words in a sentence according to the [pregroup grammar](/lambeq/glossary/#term-pregroup-grammar) formalism ([Lambek, 1999](/lambeq/bibliography/#bib-lambek_1999)). In a pregroup grammar, each type $p$ has a left ($p^l$) and a right ($p^r$) [adjoint](/lambeq/glossary/#term-adjoint), for which the following hold:
+
+$$
+p^l \cdot p \to 1 \to p \cdot p^l~~~~~~~~~~~~~ p \cdot p^r \to 1 \to p^r \cdot p
+$$
+
+<Callout type="info">
+
+In `lambeq`, the adjoints of a type `p` are represented as `p.l` and `p.r`, while the tensor product is the symbol `@`.
+
+</Callout>
+
+When annotated with pregroup types, the diagram in [Fig. 1](/lambeq/guide/string-diagrams/#fig-stringdiagram) takes the following form:
+
+![image](/lambeq-assets/_static/images/pregroups.png)
+
+Note that each wire in the sentence is labelled with an atomic type or an [adjoint](/lambeq/glossary/#term-adjoint). In the above, $n$ corresponds to a noun or a noun phrase, and $s$ to a sentence. The adjoints $n^r$ and $n^l$ indicate that a noun is expected on the left or the right of the specific word, respectively. Thus, the composite type $n \cdot n^l$ of the determiner \"a\" means that it is a word that expects a noun on its right in order to return a noun phrase.
+
+The transition from pregroups to vector space semantics is achieved by a mapping that sends atomic types to vector spaces ($n$ to $N$ and $s$ to $S$) and composite types to tensor product spaces (e.g. $n^r \cdot s \cdot n^l \cdot n^l$ to $N \otimes S \otimes N \otimes N$). Therefore, each word can be seen as a specific state in the corresponding space defined by its grammatical type, i.e. a tensor, the order of which is determined by the number of wires emanating from the corresponding box. The [cups](/lambeq/glossary/#term-cup) denote tensor contractions. A concrete instantiation of the diagram requires the assignment of dimensions (which in the quantum case amounts to fixing the number of [qubits](/lambeq/glossary/#term-qubit)) for each vector space corresponding to an atomic type.
+
+<Callout type="info">
+
+`lambeq`\'s string diagrams are objects of the class [`Diagram`](/lambeq/api/lambeq.backend/grammar#lambeq.backend.grammar.Diagram).
+
+</Callout>
+

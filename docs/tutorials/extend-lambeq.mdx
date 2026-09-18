@@ -1,0 +1,337 @@
+---
+title: "Advanced: Extending lambeq"
+---
+
+In this tutorial you will find examples of how to extend `lambeq` to add
+more [readers](/lambeq/glossary/#term-reader), [rewrite rules](/lambeq/glossary/#term-rewrite-rule) and
+[ansätze](/lambeq/glossary/#term-ansatz-plural-ans-tze), so you can start making your
+own [contributions](https://github.com/quantinuum/lambeq/pulls) to the
+toolkit.
+
+<a href="/lambeq-assets/tutorials/extend-lambeq/_downloads/extend-lambeq.ipynb" download>⬇️ Download code</a>
+
+## Creating readers
+
+The [`Reader`](/lambeq/api/lambeq.text2diagram#lambeq.text2diagram.Reader) class is an abstract base class for converting
+sentences to diagrams. Each [reader](/lambeq/glossary/#term-reader) can be seen as a different
+[compositional model](/lambeq/glossary/#term-compositional-model), and `lambeq` can accommodate any
+compositional model that represents sentences in a
+[string diagram](/lambeq/glossary/#term-string-diagram)/[tensor network](/lambeq/glossary/#term-tensor-network) form.
+
+A concrete subclass of [`Reader`](/lambeq/api/lambeq.text2diagram#lambeq.text2diagram.Reader) should implement the
+[`sentence2diagram`](/lambeq/api/lambeq.text2diagram#lambeq.text2diagram.Reader.sentence2diagram) method, which converts a single
+sentence into a rigid diagram.
+
+### Reader example: “Comb” reader
+
+In this example we will create a reader that, given a sentence, it
+generates the following tensor network:
+
+<div style={{ "display": "flex", "justifyContent": "center" }}><img src="/lambeq-assets/_static/images/linear.png" alt="drawing" width="320" style={{ "margin": "20px 2px 2px 2px" }} /></div>
+
+Note that the particular compositional model is not appropriate for
+classical experiments, since the tensor that implements the layer can
+become very large for long sentences. However, the model can be
+implemented without problems on a quantum computer.
+
+``` python
+import warnings
+warnings.filterwarnings('ignore')
+
+from lambeq import AtomicType, Reader
+from lambeq.backend.grammar import Box, Id, Word
+
+N = AtomicType.NOUN
+
+class CombReader(Reader):
+    def sentence2diagram(self, sentence):
+        words = Id().tensor(*[Word(w, N) for w in sentence.split()])
+        layer = Box('LAYER', words.cod, N)
+        return words >> layer
+
+diagram = CombReader().sentence2diagram('John gave Mary a flower')
+diagram.draw()
+```
+
+![](/lambeq-assets/tutorials/extend-lambeq/extend-lambeq_files/figure-commonmark/cell-2-output-1.png)
+
+Note that, in the above code, the method
+`tensor` refers to the monoidal
+product and not to a physical tensor object. What the specific line
+does, using the monoidal identity `Id()` as a starting point, is
+to tensor one-by-one the boxes of the words in the sentence
+accumulatively, from left to right, into a single diagram, as in a
+standard fold operation.
+
+``` python
+Id().tensor(*[Word(w, N) for w in ['John', 'gave', 'Mary', 'a', 'flower']]).draw(figsize=(5,1))
+```
+
+![](/lambeq-assets/tutorials/extend-lambeq/extend-lambeq_files/figure-commonmark/cell-3-output-1.png)
+
+This diagram is then combined with the `layer` box to create the final
+output of the [reader](/lambeq/glossary/#term-reader).
+
+<Callout type="info">
+
+In an actual implementation, the `layer` box should be shared among all sentences so it can be trained properly.
+
+</Callout>
+
+## Creating rewrite rules
+
+``` python
+from lambeq import BobcatParser
+
+parser = BobcatParser(verbose='text')
+d = parser.sentence2diagram('The food is fresh')
+```
+
+### SimpleRewriteRule example: Negation functor
+
+The [`SimpleRewriteRule`](/lambeq/api/lambeq.rewrite#lambeq.rewrite.SimpleRewriteRule) class contains functionality that
+facilitates the creation of simple [rewrite rules](/lambeq/glossary/#term-rewrite-rule),
+without the need to define a new [`RewriteRule`](/lambeq/api/lambeq.rewrite#lambeq.rewrite.RewriteRule) class from
+scratch. A [`SimpleRewriteRule`](/lambeq/api/lambeq.rewrite#lambeq.rewrite.SimpleRewriteRule) finds words with codomain
+`cod` and name in list `words`, then replaces their boxes with the
+diagram in `template`.
+
+Here is an example of a negation [functor](/lambeq/glossary/#term-functor) using
+[`SimpleRewriteRule`](/lambeq/api/lambeq.rewrite#lambeq.rewrite.SimpleRewriteRule). The functor adds a “NOT” box to the wire
+of certain auxiliary verbs:
+
+``` python
+from lambeq import AtomicType, SimpleRewriteRule
+
+N = AtomicType.NOUN
+S = AtomicType.SENTENCE
+adj = N @ N.l
+
+NOT = Box('NOT', S, S)
+
+negation_rewrite = SimpleRewriteRule(
+    cod=N.r @ S @ S.l @ N,
+    template=SimpleRewriteRule.placeholder(N.r @ S @ S.l @ N) >> Id(N.r) @ NOT @ Id(S.l @ N),
+    words=['is', 'was', 'has', 'have'])
+```
+
+<Callout type="info">
+
+The placeholder `SimpleRewriteRule.placeholder(t)` in the template above will be replaced by a box with the same name as the original box and type `t`.
+
+</Callout>
+
+A list of [`RewriteRule`](/lambeq/api/lambeq.rewrite#lambeq.rewrite.RewriteRule)s can be passed to
+[`Rewriter`](/lambeq/api/lambeq.rewrite#lambeq.rewrite.Rewriter) to create a rewriting [functor](/lambeq/glossary/#term-functor). If no list
+is provided, then the default rewriting rules are used (see [Diagram
+Rewriting](/lambeq/tutorials/rewrite/)).
+
+``` python
+from lambeq import Rewriter
+from lambeq.backend import draw_equation
+
+not_d = Rewriter([negation_rewrite])(d)
+draw_equation(d, not_d, symbol='->', figsize=(14, 4))
+```
+
+![](/lambeq-assets/tutorials/extend-lambeq/extend-lambeq_files/figure-commonmark/cell-6-output-1.png)
+
+### RewriteRule example: “Past” functor
+
+Sometimes, a [rewrite rule](/lambeq/glossary/#term-rewrite-rule) may become too complicated to be
+implemented using the [`SimpleRewriteRule`](/lambeq/api/lambeq.rewrite#lambeq.rewrite.SimpleRewriteRule) class, so the more
+general [`RewriteRule`](/lambeq/api/lambeq.rewrite#lambeq.rewrite.RewriteRule) class should be used instead. A
+concrete subclass of a [`RewriteRule`](/lambeq/api/lambeq.rewrite#lambeq.rewrite.RewriteRule) should implement the
+methods [`matches`](/lambeq/api/lambeq.rewrite#lambeq.rewrite.RewriteRule.matches) and
+[`rewrite`](/lambeq/api/lambeq.rewrite#lambeq.rewrite.RewriteRule.rewrite).
+
+A rewriter uses the [`matches`](/lambeq/api/lambeq.rewrite#lambeq.rewrite.RewriteRule.matches) methods of its
+[`RewriteRule`](/lambeq/api/lambeq.rewrite#lambeq.rewrite.RewriteRule)s to detect if a rule can be applied. If there
+is a match, then the matching box is replaced with the result of
+`rewrite(box)`.
+
+In the following example, a [functor](/lambeq/glossary/#term-functor) that changes the tense of
+certain auxiliary verbs is implemented by directly subclassing
+[`RewriteRule`](/lambeq/api/lambeq.rewrite#lambeq.rewrite.RewriteRule):
+
+``` python
+from lambeq import RewriteRule
+
+class PastRewriteRule(RewriteRule):
+    mapping = {
+        'is': 'was',
+        'are': 'were',
+        'has': 'had'
+    }
+    def matches(self, box):
+        return box.name in self.mapping
+    
+    def rewrite(self, box):
+        new_name = self.mapping[box.name]
+        return type(box)(name=new_name, cod=box.cod)
+```
+
+``` python
+past_d = Rewriter([PastRewriteRule()])(d)
+draw_equation(d, past_d, symbol='->', figsize=(9, 2))
+```
+
+![](/lambeq-assets/tutorials/extend-lambeq/extend-lambeq_files/figure-commonmark/cell-8-output-1.png)
+
+## Creating ansätze
+
+``` python
+d = parser.sentence2diagram('We will go')
+```
+
+[Ansätze](/lambeq/glossary/#term-ansatz-plural-ans-tze) for the quantum pipeline are
+implemented by extending the [`CircuitAnsatz`](/lambeq/api/lambeq.ansatz#lambeq.ansatz.CircuitAnsatz) class, while
+ansätze for the classical pipeline need to extend the
+[`TensorAnsatz`](/lambeq/api/lambeq.ansatz#lambeq.ansatz.TensorAnsatz) class. Both classes extend
+[`BaseAnsatz`](/lambeq/api/lambeq.ansatz#lambeq.ansatz.BaseAnsatz), sharing a common interface. Once an
+[ansatz](/lambeq/glossary/#term-ansatz-plural-ans-tze) is instantiated, it can be
+used as a [functor](/lambeq/glossary/#term-functor) to convert diagrams to either a
+[circuit](/lambeq/glossary/#term-quantum-circuit) or a tensor diagram.
+
+An [ansatz](/lambeq/glossary/#term-ansatz-plural-ans-tze) should be initialised with
+an `ob_map` argument, a dictionary which maps a rigid type to the number
+of [qubits](/lambeq/glossary/#term-qubit) in the quantum case, or to a dimension size
+(e.g. `Dim(2, 2)`) for the classical case. Some
+[ansätze](/lambeq/glossary/#term-ansatz-plural-ans-tze) may require additional
+arguments (see the [API documentation](../api/lambeq.ansatz.rst) for
+more details).
+
+In `lambeq`, a [functor](/lambeq/glossary/#term-functor) is defined by specifying the mappings for
+objects `ob` and arrows `ar`. The [`CircuitAnsatz`](/lambeq/api/lambeq.ansatz#lambeq.ansatz.CircuitAnsatz) and
+[`TensorAnsatz`](/lambeq/api/lambeq.ansatz#lambeq.ansatz.TensorAnsatz) classes already implement methods which extend
+`ob_map` to map not just base (atomic) types, but also compound types,
+into [qubits](/lambeq/glossary/#term-qubit) and dimensions respectively. Therefore, to
+complete a new [ansatz](/lambeq/glossary/#term-ansatz-plural-ans-tze) class, you only
+need to provide the mapping from rigid boxes to diagrams. This typically
+involves the following steps:
+
+1.  Obtain the label of the box using the `_summarise_box` method. This
+    provides a unique token which can be used to parameterise the box.
+2.  Apply the [functor](/lambeq/glossary/#term-functor) to the domain and the codomain of the box.
+3.  Construct and return an [ansatz](/lambeq/glossary/#term-ansatz-plural-ans-tze)
+    with new domain and codomain – see how to construct diagrams using
+    the low-level `lambeq` backend [here](/lambeq/tutorials/discocat/).
+
+### CircuitAnsatz example: “Real-valued” ansatz
+
+This [ansatz](/lambeq/glossary/#term-ansatz-plural-ans-tze) always returns a tensor
+with real-valued entries, since the ansatz is constructed using only the
+CNOT and Y rotation gates, which both implement real-valued unitaries.
+The [`CircuitAnsatz`](/lambeq/api/lambeq.ansatz#lambeq.ansatz.CircuitAnsatz) provides functionality to add
+postselections or discards to ensure that domains and codomains for the
+boxes match. To extend the [`CircuitAnsatz`](/lambeq/api/lambeq.ansatz#lambeq.ansatz.CircuitAnsatz) to create a new
+ansatz thus only involves providing a function to generate the circuit
+within a box.
+
+``` python
+from lambeq import CircuitAnsatz
+from lambeq.backend.quantum import CX, Id, Ry
+
+class RealAnsatz(CircuitAnsatz):
+    def __init__(self, ob_map, n_layers, n_single_qubit_params = 1, discard = False):
+
+        super().__init__(ob_map,
+                         n_layers,
+                         n_single_qubit_params,
+                         discard,
+                         [Ry, ])
+
+    def params_shape(self, n_qubits):
+        return (self.n_layers + 1, n_qubits)
+    
+    def circuit(self, n_qubits, params):
+        circuit = Id(n_qubits)
+        n_layers = params.shape[0] - 1
+
+        for i in range(n_layers):
+            syms = params[i]
+
+            # adds a layer of Y rotations
+            circuit >>= Id().tensor(*[Ry(sym) for sym in syms])
+
+            # adds a ladder of CNOTs
+            for j in range(n_qubits - 1):
+                circuit >>= Id(j) @ CX @ Id(n_qubits - j - 2)
+
+        # adds a final layer of Y rotations
+        circuit >>= Id().tensor(*[Ry(sym) for sym in params[-1]])
+
+        return circuit
+```
+
+``` python
+real_d = RealAnsatz({N: 1, S: 1}, n_layers=2)(d)
+real_d.draw(figsize=(12, 10))
+```
+
+![](/lambeq-assets/tutorials/extend-lambeq/extend-lambeq_files/figure-commonmark/cell-11-output-1.png)
+
+### TensorAnsatz example
+
+``` python
+from lambeq import TensorAnsatz, Symbol
+from lambeq.backend import tensor
+from lambeq.backend.tensor import Dim
+
+class UnitSpiderAnsatz(TensorAnsatz):
+
+    def _ar(self, functor, box):
+        # step 1: obtain label
+        name = self._summarise_box(box)
+
+        # step 2: map domain and codomain
+        dom, cod = functor(box.dom), functor(box.cod)
+
+        # step 3: construct and return ansatz
+        syms = Symbol(name, 2, 2)
+        tnsr = tensor.Box(box.name, Dim(2), Dim(2), syms)
+
+        return tensor.Spider(Dim(2), len(box.dom), 1) >> tnsr >> tensor.Spider(Dim(2), 1, len(box.cod))
+```
+
+``` python
+ansatz = UnitSpiderAnsatz({N: Dim(2), S: Dim(2)})
+positive_d = ansatz(d)
+positive_d.draw()
+```
+
+![](/lambeq-assets/tutorials/extend-lambeq/extend-lambeq_files/figure-commonmark/cell-13-output-1.png)
+
+``` python
+import numpy as np
+
+syms = sorted(positive_d.free_symbols)
+sym_dict = {k: -np.ones(k.size) for k in syms}
+subbed_diagram = positive_d.lambdify(*syms)(*sym_dict.values())
+
+subbed_diagram.eval()
+```
+
+```text
+array([-8., -8.])
+```
+
+## Contributions
+
+We encourage you to implement your own [readers](/lambeq/glossary/#term-reader),
+[rewrite rules](/lambeq/glossary/#term-rewrite-rule) and
+[ansätze](/lambeq/glossary/#term-ansatz-plural-ans-tze) and [contribute to
+lambeq](https://github.com/quantinuum/lambeq/pulls) – detailed
+guidelines are available [here](/lambeq/CONTRIBUTING/). Below you can find
+some sources of inspiration:
+
+- rewrites for relative pronouns: ([Sadrzadeh et al., 2013](/lambeq/bibliography/#bib-sadrzadeh_2013)),
+  ([Sadrzadeh et al., 2014](/lambeq/bibliography/#bib-sadrzadeh_2014))
+- rewrites to deal with coordination: ([Kartsaklis, 2016](/lambeq/bibliography/#bib-kartsaklis_2016a))
+- rewrites to reduce the dimension size of verbs:
+  ([Kartsaklis et al., 2016](/lambeq/bibliography/#bib-kartsaklis_2016b))
+- rewrites to language circuits (DisCoCirc):
+  ([Coecke, 2021](/lambeq/bibliography/#bib-coecke_2021a); [Coecke & Wang, 2021](/lambeq/bibliography/#bib-coecke_2021b))
+- ansätze benchmarked by their expressibility: ([Sim et al., 2019](/lambeq/bibliography/#bib-sim_2019))
+- high-level examples of ansätze:
+  [\[link\]](https://pennylane.ai/glossary/circuit_ansatz)

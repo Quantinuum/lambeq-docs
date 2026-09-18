@@ -1,0 +1,28 @@
+---
+title: "Syntactic parsing"
+---
+
+`lambeq`\'s [string diagrams](/lambeq/guide/string-diagrams/) are based on a [pregroup grammar](/lambeq/guide/string-diagrams/#pregroup-grammars) to keep track of the types and the interactions between the words in a sentence. When a detailed syntactic derivation is required (as in the case of [DisCoCat](/lambeq/glossary/#term-discocat)), a [syntax tree](/lambeq/glossary/#term-syntax-tree) needs to be provided by a statistical [parser](/lambeq/glossary/#term-parser). However, since the [pregroup grammar](/lambeq/glossary/#term-pregroup-grammar) formalism is not particularly well-known in the [NLP](/lambeq/glossary/#term-natural-language-processing-nlp) community, there is currently no wide-coverage pregroup [parser](/lambeq/glossary/#term-parser) that can automatically provide the syntactic derivations. To address this problem, `lambeq` provides a passage from a derivation in the closest alternative grammar formalism, namely [Combinatory Categorial Grammar (CCG)](/lambeq/glossary/#term-combinatory-categorial-grammar-ccg), to a [string diagram](/lambeq/glossary/#term-string-diagram) which faithfully encodes the syntactic structure of the sentence in a pregroup-like form ([Yeung & Kartsaklis, 2021](/lambeq/bibliography/#bib-yeung_2021)). Due to the availability of many robust [CCG](/lambeq/glossary/#term-combinatory-categorial-grammar-ccg) [parsing tools](/lambeq/glossary/#term-parser), this allows the conversion of large corpora with sentences of arbitrary length and syntactic structure into [pregroup](/lambeq/glossary/#term-pregroup-grammar) and [DisCoCat](/lambeq/glossary/#term-discocat) form.
+
+The standard `lambeq` installation includes a CCG parser based on ([Clark, 2021](/lambeq/bibliography/#bib-clark_2021)), fully integrated into the toolkit. This parser is provided under the name [Bobcat](/lambeq/glossary/#term-bobcat). Additionally, `lambeq` implements a detailed interface in the [`text2diagram`](/lambeq/api/lambeq.text2diagram#lambeq.text2diagram) package that allows connection to one of the many external CCG parsing tools that are currently available. For example, `lambeq` is also shipped with support for [depccg](/lambeq/glossary/#term-depccg)[^1] ([Yoshikawa et al., 2017](/lambeq/bibliography/#bib-yoshikawa_2017)), a fast parser that comes with a convenient Python interface.
+
+Additional external parsers can be made available to `lambeq` by extending the [`CCGParser`](/lambeq/api/lambeq.text2diagram#lambeq.text2diagram.CCGParser) class in order to create a wrapper subclass that encapsulates the necessary calls and translates the respective parser\'s output into [`CCGTree`](/lambeq/api/lambeq.text2diagram#lambeq.text2diagram.CCGTree) format.
+
+Finally, for users who prefer to keep the installation of the toolkit light, `lambeq` also includes a web-based parser class that sends parsing queries to an online API, so that local installation of a full CCG parser is not strictly necessary anymore \-- although strongly recommended for most practical uses of the toolkit.
+
+## Oncilla parser
+
+Since Release [Release notes](/lambeq/release-notes/), `lambeq` provides a new end-to-end parser class, [`OncillaParser`](/lambeq/api/lambeq.text2diagram#lambeq.text2diagram.OncillaParser), that simplifies the process of generating diagrams from text, minimizing or even eliminating exposure of the user to CCG representations and functionality. This parser utilises the [pregroup tree](/lambeq/glossary/#term-pregroup-tree) representation of diagrams, with coverage and accuracy intended to be comparable to Bobcat. Depending on workload and environment, parsing speed may be faster in some settings. [Oncilla](/lambeq/glossary/#term-oncilla) parser is currently available as an experimental feature.
+
+## Reading CCGBank
+
+The [CCG](/lambeq/glossary/#term-combinatory-categorial-grammar-ccg) compatibility immediately makes a wide range of language-related resources available to `lambeq`. For example, `lambeq` features a [`CCGBankParser`](/lambeq/api/lambeq.text2diagram#lambeq.text2diagram.CCGBankParser) class, which allows conversion of the entire [CCGBank](/lambeq/glossary/#term-ccgbank) corpus[^2] ([Hockenmaier & Steedman, 2007](/lambeq/bibliography/#bib-hockenmaier_2007)) into [string diagrams](/lambeq/glossary/#term-string-diagram). [CCGBank](/lambeq/glossary/#term-ccgbank) consists of 49,000 human-annotated [CCG](/lambeq/glossary/#term-combinatory-categorial-grammar-ccg) syntax trees, converted from the original Penn Treebank into [CCG](/lambeq/glossary/#term-combinatory-categorial-grammar-ccg) form. Having a gold standard corpus of [string diagrams](/lambeq/glossary/#term-string-diagram) allows various supervised learning scenarios involving automatic diagram generation. [Fig. 1](/lambeq/guide/parsing/#fig-ccgbank) below shows the first tree of [CCGBank](/lambeq/glossary/#term-ccgbank)\'s Section 00 converted into a [string diagram](/lambeq/glossary/#term-string-diagram).
+
+<a id="fig-ccgbank" />
+<figure><img src="/lambeq-assets/_static/images/ccgbank.png" alt="../_static/images/ccgbank.png" /><figcaption><strong>Fig. 1</strong> The first derivation of CCGBank as a string diagram.</figcaption></figure>
+
+**Footnotes**
+
+[^1]: [https://github.com/masashi-y/depccg](https://github.com/masashi-y/depccg)
+
+[^2]: [https://catalog.ldc.upenn.edu/LDC2005T13](https://catalog.ldc.upenn.edu/LDC2005T13)

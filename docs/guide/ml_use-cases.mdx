@@ -1,0 +1,227 @@
+---
+title: "lambeq use cases"
+---
+
+`lambeq` covers a wide range of experiment use cases ([Fig. 1](/lambeq/guide/ml_use-cases/#fig-usecases)) in three broad categories:
+
+- quantum simulations on classical hardware;
+- actual runs on quantum hardware;
+- evaluation of tensor networks on classical hardware.
+
+<a id="fig-usecases" />
+<figure style={{ "display": "flex", "flexDirection": "column", "alignItems": "center", "textAlign": "center" }}><img src="/lambeq-assets/_static/images/use_cases.png" alt="../_static/images/use_cases.png" /><figcaption>Hierarchy of experimental use cases in lambeq.</figcaption></figure>
+
+The above figure introduces a couple of concepts that might need further explanation for users new to quantum computing:
+
+- **shot-based run/simulation**: Unlike classical computers, quantum computers are inherently non-deterministic. This means that running a quantum circuit only once and using the output for some task may produce unreliable results. A common approach is to run the same circuit many times (or [shots](/lambeq/glossary/#term-shots)) and use statistical aggregation. On current [NISQ](/lambeq/glossary/#term-nisq) devices, this statistical variability can be further influenced by factors such as [noise](/lambeq/glossary/#term-noise) and environmental interference.
+- **noisy simulation**: A noisy simulation uses a noise model that tries to approximate the negative effect of noise, errors, and environmental interference that are inherent in current [NISQ](/lambeq/glossary/#term-nisq) devices. It is the closest you can get to an actual quantum run from a simulation running on classical hardware.
+
+[Table 1](/lambeq/guide/ml_use-cases/#tbl-usecases) provides a concise reference for the most common scenarios, together with the recommended `lambeq` models and trainers to use for each of them, while the following subsections present each case in more detail.
+
+<a id="tbl-usecases" />
+| Use case | Configurations |  |
+|----|----|----|
+| Exact non-shot based simulation of quantum circuits on classical hardware | [`PytorchQuantumModel`](/lambeq/api/lambeq.training#lambeq.training.PytorchQuantumModel) with [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer), [`NumpyModel`](/lambeq/api/lambeq.training#lambeq.training.NumpyModel) with [`QuantumTrainer`](/lambeq/api/lambeq.training#lambeq.training.QuantumTrainer), [`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) with [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer) | [details](/lambeq/guide/ml_use-cases/#exact-non-shot-based-simulation-of-quantum-circuits-on-classical-hardware) |
+| Noiseless shot-based simulation of quantum circuits on classical hardware | [`TketModel`](/lambeq/api/lambeq.training#lambeq.training.TketModel) with [`QuantumTrainer`](/lambeq/api/lambeq.training#lambeq.training.QuantumTrainer),
+[`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) with [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer) | [details](/lambeq/guide/ml_use-cases/#shot-based-simulation-of-quantum-circuits-on-classical-hardware) |
+| Noisy shot-based simulation of quantum circuits on classical hardware | [`TketModel`](/lambeq/api/lambeq.training#lambeq.training.TketModel) with [`QuantumTrainer`](/lambeq/api/lambeq.training#lambeq.training.QuantumTrainer),
+[`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) with [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer) | [details](/lambeq/guide/ml_use-cases/#shot-based-simulation-of-quantum-circuits-on-classical-hardware) |
+| Evaluation of quantum circuits on a quantum computer | [`TketModel`](/lambeq/api/lambeq.training#lambeq.training.TketModel) with [`QuantumTrainer`](/lambeq/api/lambeq.training#lambeq.training.QuantumTrainer),
+[`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) with [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer) | [details](/lambeq/guide/ml_use-cases/#evaluation-of-quantum-circuits-on-a-quantum-computer) |
+| Evaluation of classical, tensor-based models | [`PytorchModel`](/lambeq/api/lambeq.training#lambeq.training.PytorchModel) with [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer) | [details](/lambeq/guide/ml_use-cases/#evaluation-of-classical-tensor-based-models) |
+| Hybrid classical/quantum simulation of quantum circuits on classical hardware | [`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) with [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer) | [details](/lambeq/guide/ml_use-cases/#hybrid-classicalquantum-simulations-on-classical-hardware) |
+
+Common training use cases.
+
+## Exact (non shot-based) simulation of quantum circuits on classical hardware 
+
+**Description**
+
+Perform a simple, noiseless, non-shot-based simulation of a quantum run on classical hardware.
+
+**Configuration**
+
+- [`PytorchQuantumModel`](/lambeq/api/lambeq.training#lambeq.training.PytorchQuantumModel) with [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer).
+- [`NumpyModel`](/lambeq/api/lambeq.training#lambeq.training.NumpyModel) with [`QuantumTrainer`](/lambeq/api/lambeq.training#lambeq.training.QuantumTrainer).
+- [`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) with [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer).
+
+**When to use**
+
+- As a first proof-of-concept for a quantum model configuration
+- As a simple baseline for comparing with quantum runs
+- When fast training speeds are required
+
+Computation with [NISQ](/lambeq/glossary/#term-nisq) devices is slow, noisy, and limited, so it is still not practical to do extensive training and comparative analyses on them. For this reason, and especially at the early stages of modelling, proofs-of-concept are usually obtained by running simulations on classical hardware. The simplest possible way to simulate a quantum computation on a classical computer is by using linear algebra; since quantum gates correspond to complex-valued tensors, each circuit can be represented as a tensor network where computation takes the form of tensor contractions. The output of the tensor network gives the ideal probability distribution of the measurement outcomes on a noise-free quantum computer and is only a rough approximation of the sampled probability distribution obtained from a [NISQ](/lambeq/glossary/#term-nisq) device. An \"exact simulation\" of this form usually serves as a simple baseline or the first proof of concept for testing a quantum configuration, and, in `lambeq`, is implemented by the [`PytorchQuantumModel`](/lambeq/api/lambeq.training#lambeq.training.PytorchQuantumModel) class which provides fast PyTorch training with autograd, by the [`NumpyModel`](/lambeq/api/lambeq.training#lambeq.training.NumpyModel) class, and by the [`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) with the attribute `backend_config={'backend'='default.qubit', 'shots'=None}`.
+
+**See also:**
+
+- [PytorchQuantumModel](/lambeq/guide/ml_models/#pytorchquantummodel)
+- [NumpyModel](/lambeq/guide/ml_models/#numpymodel)
+- [PennyLaneModel](/lambeq/guide/ml_models/#pennylanemodel)
+
+## Shot-based simulation of quantum circuits on classical hardware 
+
+**Description**
+
+Noisy or noiseless shot-based simulations on classical hardware using [tket](/lambeq/glossary/#term-tket) or [PennyLane](/lambeq/glossary/#term-pennylane) backends.
+
+**Configuration**
+
+- [`TketModel`](/lambeq/api/lambeq.training#lambeq.training.TketModel) with [`QuantumTrainer`](/lambeq/api/lambeq.training#lambeq.training.QuantumTrainer).
+- [`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) with [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer).
+
+**When to use**
+
+- As a faithful approximation of an actual quantum run
+- When the available actual quantum machines are still small for the kind of experiment you have in mind
+
+When a faithful approximation of a quantum run is needed, one should use a proper shot-based simulation, optionally including a noise model that is appropriate for the specific kind of quantum hardware. In fact, a noisy shot-based simulation is as close as we could get to an actual quantum run. For example, in order to run an architecture-aware simulation on an IBM machine, we could use a [`TketModel`](/lambeq/api/lambeq.training#lambeq.training.TketModel) initialised with a [Qiskit](/lambeq/glossary/#term-qiskit) noise model:
+
+``` python
+from pytket.extensions.qiskit import IBMQEmulatorBackend
+from lambeq import TketModel
+
+all_circuits = train_circuits + dev_circuits + test_circuits
+
+device_name  = 'ibmq_washington' # need credentials to access this device
+backend = IBMQEmulatorBackend(device_name)
+backend_config = {
+   'backend': backend,
+   'compilation': backend.default_compilation_pass(2),
+   'shots': 8192
+}
+model = TketModel.from_diagrams(all_circuits, backend_config=backend_config)
+```
+
+As another example, simulating a noisy run on a Honeywell machine with a [`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) would require the following initialisation:
+
+``` python
+from lambeq import PennyLaneModel
+
+all_circuits = train_circuits + dev_circuits + test_circuits
+
+backend_config = {'backend': 'honeywell.hqs',
+                  'device': 'H1',
+                  'shots': 1000,
+                  'probabilities': True,
+                  'normalize': True}
+model = PennyLaneModel.from_diagrams(all_circuits,
+                                     backend_config=backend_config)
+```
+
+If you have not previously done so, it will be necessary to save your Honeywell account email address to the PennyLane configuration file in order to use the \'honeywell.hqs\' backend:
+
+``` python
+import pennylane as qml
+
+qml.default_config["honeywell.global.user_email"] = "my_Honeywell/Quantinuum_account_email"
+qml.default_config.save(qml.default_config.path)
+```
+
+Using a noise model in our simulations is not always necessary, especially in the early stages of modelling when it is often useful to assess the expected performance of the model in ideal conditions, ignoring the effects of noise and environmental interference. By default [`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) uses a noiseless simulation, and a shot-based simulation can be initialised as below:
+
+``` python
+from lambeq import PennyLaneModel
+
+backend_config = {'shots': 1000}
+model = PennyLaneModel.from_diagrams(all_circuits,
+                                     backend_config=backend_config)
+```
+
+**See also:**
+
+- [TketModel](/lambeq/guide/ml_models/#tketmodel)
+- [PennyLaneModel](/lambeq/guide/ml_models/#pennylanemodel)
+
+## Evaluation of quantum circuits on a quantum computer 
+
+**Description**
+
+Perform actual quantum runs using [tket](/lambeq/glossary/#term-tket) or [PennyLane](/lambeq/glossary/#term-pennylane) backends.
+
+**Configuration**
+
+- [`TketModel`](/lambeq/api/lambeq.training#lambeq.training.TketModel) with [`QuantumTrainer`](/lambeq/api/lambeq.training#lambeq.training.QuantumTrainer).
+- [`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) with [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer).
+
+**When to use**
+
+Use when hardware access is available and aligns with your experimental goals.
+
+After obtaining satisfactory simulation results, an optional next step is to evaluate your model on a real quantum machine. For this, you will need an account on a platform that provides quantum services, such as [IBM Quantum](https://quantum-computing.ibm.com).
+
+<Callout type="info">
+
+While providers usually offer free plans which allow some limited access to their resources, depending on your experimental needs a paid subscription might be required. [Table 2](/lambeq/guide/ml_use-cases/#tbl-quantumservices) summarises some popular quantum platforms that are currently available to the public.
+
+</Callout>
+
+<a id="tbl-quantumservices" />
+| Platform | Technology |
+|----|----|
+| [Alpine Quantum Technologies](https://www.aqt.eu/qc-systems/) | [Trapped ions](https://en.wikipedia.org/wiki/Trapped_ion_quantum_computer) |
+| [Amazon Braket](https://aws.amazon.com/braket/) | [Annealing](https://en.wikipedia.org/wiki/Quantum_annealing), trapped ions, [superconducting qubits](https://en.wikipedia.org/wiki/Superconducting_quantum_computing), [photonics](https://pennylane.ai/qml/demos/tutorial_photonics.html) |
+| [Atom Computing](https://atom-computing.com/) | [Neutral atoms](https://pennylane.ai/qml/demos/tutorial_pasqal.html) in an [optical lattice](https://en.wikipedia.org/wiki/Optical_lattice) |
+| [Google Quantum AI](https://quantumai.google/) | Superconducting qubits |
+| [IBM Quantum](https://quantum-computing.ibm.com) | Superconducting qubits |
+| [IonQ Cloud access](https://ionq.com/get-started/#cloud-access) | Trapped ions |
+| [IQM](https://www.meetiqm.com/) | Superconducting qubits |
+| [Microsoft Azure Quantum](https://azure.microsoft.com/en-us/solutions/quantum-computing/) | Trapped ions, superconducting qubits, [neutral atoms](https://pennylane.ai/qml/demos/tutorial_pasqal.html) |
+| [Oxford Quantum Circuits](https://oxfordquantumcircuits.com) | Superconducting qubits |
+| [Quandela](https://www.quandela.com/) | Photonics |
+| [Quantinuum](https://www.quantinuum.com/) | Trapped ions |
+| [Quantware](https://www.quantware.eu) | Superconducting qubits |
+| [QuEra](https://www.quera.com) | Neutral atoms |
+| [Rigetti Quantum Cloud Services](https://qcs.rigetti.com/sign-in) | Superconducting qubits |
+
+Quantum platforms.
+
+**See also:**
+
+- [TketModel](/lambeq/guide/ml_models/#tketmodel)
+- [PennyLaneModel](/lambeq/guide/ml_models/#pennylanemodel)
+
+## Evaluation of classical tensor-based models 
+
+**Description**
+
+Perform tensor-based experiments on classical hardware using [PyTorch](/lambeq/glossary/#term-pytorch).
+
+**Configuration**
+
+[`PytorchModel`](/lambeq/api/lambeq.training#lambeq.training.PytorchModel) with [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer).
+
+**When to use**
+
+- As a proof-of-concept for validating sentence modelling at a high level
+- As a classical baseline to compare with similarly structured quantum models
+- For enhancing models with neural parts and other ML features
+
+While `lambeq` is primarily aimed at the design and execution of NLP models on quantum hardware, in practice it is more than a QNLP toolkit: it is a modelling tool capable of representing language at many different levels of abstraction, including syntax trees, string/monoidal diagrams, strict pregroup diagrams, and quantum circuits. For example, the abstract representation given by a string diagram can be directly translated into a tensor network and executed on classical hardware. This can be useful for providing comparison and benchmarking between quantum models and similar classical implementations.
+
+Furthermore, using the PyTorch backend via [`PytorchModel`](/lambeq/api/lambeq.training#lambeq.training.PytorchModel) provides access to a wide range of robust deep learning features, allowing you to combine your tensor-based models with neural parts (e.g. embeddings or classifiers) in an effortless way.
+
+**See also:**
+
+- [PytorchModel](/lambeq/guide/ml_models/#pytorchmodel)
+
+## Hybrid classical/quantum simulations on classical hardware 
+
+**Description**
+
+Hybrid neural/classical/quantum configurations based on [PennyLane](/lambeq/glossary/#term-pennylane) and [PyTorch](/lambeq/glossary/#term-pytorch).
+
+**Configuration**
+
+[`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) with [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer).
+
+**When to use**
+
+- To mix neural nets (or other classical models) and quantum circuits into hybrid models
+- To exploit the rich functionality and options provided by the [PennyLane](/lambeq/glossary/#term-pennylane) toolkit
+
+For building hybrid quantum-classical models, `lambeq` provides access to the [PennyLane](/lambeq/glossary/#term-pennylane) QML toolkits via the [`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel). [PennyLane](/lambeq/glossary/#term-pennylane) integrates smoothly with PyTorch; for example in `lambeq` it is possible to use a [`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) in conjunction with a [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer) to perform a wide range of experiments.
+
+**See also:**
+
+- [PennyLaneModel](/lambeq/guide/ml_models/#pennylanemodel)

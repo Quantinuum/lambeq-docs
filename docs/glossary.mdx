@@ -1,0 +1,375 @@
+---
+title: "Glossary"
+---
+
+<a id="term-adjoint" />
+
+**adjoint**
+
+In `lambeq`, each [pregroup](/lambeq/glossary/#term-pregroup-grammar) type $p$ has a left ($p^l$) and a right ($p^r$) adjoint, which are used to represent arguments in composite types. For example, a transitive verb has type $n^r \cdot s \cdot n^l$, meaning it expects a noun argument on both sides in order to return a sentence.
+
+<a id="term-ansatz-plural-ans-tze" />
+
+**ansatz (plural: ansätze)**
+
+A map that determines choices such as the number of [qubits](/lambeq/glossary/#term-qubit) that every wire of a [string diagram](/lambeq/glossary/#term-string-diagram) is associated with and the concrete parameterised quantum states that correspond to each word. For the classical case, an ansatz determines the number of dimensions associated with each type, and the way that large tensors are represented as [matrix product states](/lambeq/glossary/#term-matrix-product-state-mps).
+
+<a id="term-bag-of-words" />
+
+**bag-of-words**
+
+A [compositional model](/lambeq/glossary/#term-compositional-model) of meaning which represents a sentence as a multiset of words; that is, it does not take into account the order of words or any other syntactic relationship between them.
+
+<a id="term-bobcat" />
+
+**Bobcat**
+
+A statistical [CCG](/lambeq/glossary/#term-combinatory-categorial-grammar-ccg) parser based on ([Clark, 2021](/lambeq/bibliography/#bib-clark_2021)). Bobcat is `lambeq`\'s default parser.
+
+<a id="term-cap" />
+
+**cap**
+
+A special morphism in a [rigid category](/lambeq/glossary/#term-rigid-category), which, together with a [cup](/lambeq/glossary/#term-cup) morphism, obey certain conditions called [snake equations](/lambeq/glossary/#term-snake-equations). In diagrammatic form, a cap is depicted as a wire with downward concavity ($\cap$). In the context of [DisCoCat](/lambeq/glossary/#term-discocat), a cap is mostly used to \"bridge\" disconnected wires in order to alter the normal \"flow\" of information from one word to another, for example in cases such as *type-raising*.
+
+<a id="term-category" />
+
+**category**
+
+In *category theory*, a category is a mathematical structure that consists of a collection of *objects* and a collection of *morphisms* between objects, forming a labelled directed graph. A category has two basic properties: the ability to compose the arrows associatively and the existence of an identity arrow for each object. `lambeq` structures are expressed in terms of a [monoidal category](/lambeq/glossary/#term-monoidal-category).
+
+<a id="term-categorical-quantum-mechanics-cqm" />
+
+**categorical quantum mechanics (CQM)**
+
+The study of quantum foundations and quantum information using paradigms from mathematics and computer science, specifically [monoidal categories](/lambeq/glossary/#term-monoidal-category). The primitive objects of study are physical processes and the different ways that these can be composed. The field was originated by Samson Abramsky and Bob Coecke in 2004 ([Abramsky & Coecke, 2004](/lambeq/bibliography/#bib-abramsky_2004)).
+
+<a id="term-ccgbank" />
+
+**CCGBank**
+
+The [CCG](/lambeq/glossary/#term-combinatory-categorial-grammar-ccg) version of *Penn Treebank*, a corpus of over 49,000 human-annotated syntactic trees created by Julia Hockenmaier and Mark Steedman ([Hockenmaier & Steedman, 2007](/lambeq/bibliography/#bib-hockenmaier_2007)).
+
+<a id="term-combinatory-categorial-grammar-ccg" />
+
+**Combinatory Categorial Grammar (CCG)**
+
+A grammar formalism inspired by combinatory logic and developed by Mark Steedman ([Steedman, 2000](/lambeq/bibliography/#bib-steedman_2000)). It defines a number of combinators (application, composition, and type-raising being the most common) that operate on syntactically-typed lexical items, by means of natural deduction style proofs. CCG is categorised as a *mildly context-sensitive* grammar, standing in between context-free and context-sensitive in Chomsky hierarchy and providing a nice trade-off between expressive power and computational complexity.
+
+<a id="term-compact-closed-category" />
+
+**compact closed category**
+
+A symmetric [rigid category](/lambeq/glossary/#term-rigid-category). The symmetry of the category causes the left and right duals of an object to coincide: $A^l=A^r=A^*$. A [pregroup grammar](/lambeq/glossary/#term-pregroup-grammar) is often referred to as a non-symmetric compact closed category.
+
+<a id="term-compositional-model" />
+
+**compositional model**
+
+A model that produces semantic representations of sentences by composing together the semantic representations of the words within them. An example of a compositional model is [DisCoCat](/lambeq/glossary/#term-discocat).
+
+<a id="term-coreference-resolution" />
+
+**coreference resolution**
+
+A task whose goal is to identify which linguistic expressions in a text refer to the same real-world entity. In `lambeq`, coreference resolution is mainly used in the context of [DisCoCirc](/lambeq/glossary/#term-discocirc) models, and utilises the [spaCy](/lambeq/glossary/#term-spacy) NLP toolkit and the [Maverick](https://github.com/SapienzaNLP/maverick-coref) package.
+
+<a id="term-cup" />
+
+**cup**
+
+A special morphism in a [rigid category](/lambeq/glossary/#term-rigid-category), which, together with a [cap](/lambeq/glossary/#term-cap) morphism, obey certain conditions called [snake equations](/lambeq/glossary/#term-snake-equations). In diagrammatic form, a cup is depicted as a wire with upward concavity ($\cup$). In the context of [DisCoCat](/lambeq/glossary/#term-discocat), a cup usually represents a tensor contraction between two-word representations.
+
+<a id="term-depccg" />
+
+**depccg**
+
+A statistical [CCG](/lambeq/glossary/#term-combinatory-categorial-grammar-ccg) [parser](/lambeq/glossary/#term-parser) for English and Japanese ([Yoshikawa et al., 2017](/lambeq/bibliography/#bib-yoshikawa_2017)).
+
+<a id="term-discocat" />
+
+**DisCoCat**
+
+The DIStributional COmpositional CATegorical model of natural language meaning developed by Bob Coecke, Mehrnoosh Sadrzadeh and Steve Clark ([Coecke et al., 2010](/lambeq/bibliography/#bib-coecke_2010)). The model applies a [functor](/lambeq/glossary/#term-functor) $F: \textrm{Grammar} \to \textrm{Meaning}$ whose left-hand side is a free pregroup over a partially ordered set of basic grammar types, and the right-hand side is the category whose morphisms describe a sequence of operations that can be evaluated on a classical or quantum computer.
+
+<a id="term-discocirc" />
+
+**DisCoCirc**
+
+DIStributional COmpositional CIRCuit. A framework of compositional models (still at the experimental stage) with the ability to encode entire paragraphs or even documents into a quantum circuit, based on ([Coecke, 2021](/lambeq/bibliography/#bib-coecke_2021a)). The generated quantum circuits are intended to represent selected semantic relationships in the provided text, and can be trained as a regular machine learning model.
+
+<a id="term-discopy" />
+
+**DisCoPy**
+
+DIStributional COmpositional PYthon. A Python library for working with [monoidal categories](/lambeq/glossary/#term-monoidal-category) ([de Felice et al., 2021](/lambeq/bibliography/#bib-de_felice_2021)). It includes abstractions for creating all standard [quantum gates](/lambeq/glossary/#term-quantum-gate) and building [quantum circuits](/lambeq/glossary/#term-quantum-circuit). Additionally, it is equipped with many language-related features, such as support for [pregroup grammars](/lambeq/glossary/#term-pregroup-grammar) and [functors](/lambeq/glossary/#term-functor) for implementing [compositional models](/lambeq/glossary/#term-compositional-model).
+
+<a id="term-frame" />
+
+**frame**
+
+In `lambeq`\'s [string diagrams](/lambeq/glossary/#term-string-diagram), a special type of box that can contain other boxes or frames. Frames are mainly used in the context of [DisCoCirc](/lambeq/glossary/#term-discocirc) models, representing higher-level linguistic expressions.
+
+<a id="term-frobenius-algebra" />
+
+**Frobenius algebra**
+
+In the context of a [symmetric monoidal category](/lambeq/glossary/#term-symmetric-monoidal-category), a Frobenius algebra provides morphisms $\Delta: A \to A\otimes A$ and $\mu: A\otimes A \to A$ for any object $A$, satisfying certain conditions (the so-called Frobenius equations) and implementing the notion of a [spider](/lambeq/glossary/#term-spider). In `lambeq` and [DisCoCat](/lambeq/glossary/#term-discocat), spiders can be used to implement [rewrite rules](/lambeq/glossary/#term-rewrite-rule) ([Kartsaklis, 2016](/lambeq/bibliography/#bib-kartsaklis_2016a); [Kartsaklis et al., 2016](/lambeq/bibliography/#bib-kartsaklis_2016b); [Sadrzadeh et al., 2013](/lambeq/bibliography/#bib-sadrzadeh_2013); [Sadrzadeh et al., 2014](/lambeq/bibliography/#bib-sadrzadeh_2014)).
+
+<a id="term-functor" />
+
+**functor**
+
+A structure-preserving transformation from one [category](/lambeq/glossary/#term-category) to another. `lambeq`\'s [pipeline](/lambeq/guide/pipeline/) is essentially a chain of functorial transformations from a grammar category to a category accommodating the meaning of a sentence.
+
+<a id="term-iqp-circuit" />
+
+**IQP circuit**
+
+Instantaneous Quantum Polynomial. A circuit which interleaves layers of Hadamard [quantum gates](/lambeq/glossary/#term-quantum-gate) with diagonal unitaries.
+
+<a id="term-loss-function" />
+
+**loss function**
+
+In machine learning, a function that estimates how far the prediction of a [model](/lambeq/glossary/#term-model) is from its true value. The purpose of training is to minimise the loss over the training set.
+
+<a id="term-matrix-product-state-mps" />
+
+**matrix product state (MPS)**
+
+A factorization of a large tensor into a chain-like product of smaller tensors. `lambeq` is equipped with [ansätze](/lambeq/glossary/#term-ansatz-plural-ans-tze) that implement various forms of matrix product states, allowing the execution of large [tensor networks](/lambeq/glossary/#term-tensor-network) on classical hardware.
+
+<a id="term-model" />
+
+**model**
+
+A `lambeq` model is a class holding the trainable weights and other model-specific information, used in supervised learning. A model is always associated with a specific backend, such as [PyTorch](/lambeq/glossary/#term-pytorch), NumPy, or [tket](/lambeq/glossary/#term-tket), and is paired with a matching [trainer](/lambeq/glossary/#term-trainer).
+
+<a id="term-monoidal-category" />
+
+**monoidal category**
+
+A [category](/lambeq/glossary/#term-category) equipped with the monoidal product $\otimes$ and monoidal unit $I$, providing an abstraction suitable for quantum computation. [Categorical quantum mechanics (CQM)](/lambeq/glossary/#term-categorical-quantum-mechanics-cqm) and [DisCoCat](/lambeq/glossary/#term-discocat) are both based on the mathematical framework of monoidal categories.
+
+<a id="term-natural-language-processing-nlp" />
+
+**natural language processing (NLP)**
+
+The use of computational methods for solving language-related problems.
+
+<a id="term-nisq" />
+
+**NISQ**
+
+Noisy Intermediate-Scale Quantum. A term for characterising the current state of quantum hardware, where quantum processors still contain a small number of qubits, and are not advanced enough to reach fault-tolerance nor large enough to profit substantially from quantum supremacy.
+
+<a id="term-noise" />
+
+**noise**
+
+Undesired artefacts that cause the measurement outcome of a [quantum circuit](/lambeq/glossary/#term-quantum-circuit) to deviate from the ideal distribution.
+
+<a id="term-oncilla" />
+
+**Oncilla**
+
+A new experimental end-to-end parser that simplifies the process of generating diagrams from text, minimizing or even eliminating exposure of the user to CCG representations and functionality. This parser utilises the [pregroup tree](/lambeq/glossary/#term-pregroup-tree) representation of diagrams.
+
+<a id="term-parser" />
+
+**parser**
+
+A statistical tool that converts a sentence into a hierarchical representation that reflects the syntactic relationships between the words (a [syntax tree](/lambeq/glossary/#term-syntax-tree)) based on a specific grammar formalism.
+
+<a id="term-pennylane" />
+
+**PennyLane**
+
+A Python library for differentiable programming of quantum computers, developed by Xanadu, enabling quantum machine learning. See more [here](https://pennylane.ai/qml/).
+
+<a id="term-post-selection" />
+
+**post-selection**
+
+The act of conditioning the probability space on a particular event. In practice, this involves disregarding measurement outcomes where a particular qubit does not match the post-selected value.
+
+<a id="term-pregroup-grammar" />
+
+**pregroup grammar**
+
+A grammar formalism developed by Joachim Lambek in 1999 ([Lambek, 1999](/lambeq/bibliography/#bib-lambek_1999)) based on the notion of a *pregroup*. Pregroup grammars are closely related to categorial grammars (such as [CCG](/lambeq/glossary/#term-combinatory-categorial-grammar-ccg)). In category-theoretic terms, a pregroup grammar forms a [rigid category](/lambeq/glossary/#term-rigid-category), sometimes also referred to as a non-symmetric [compact closed category](/lambeq/glossary/#term-compact-closed-category).
+
+<a id="term-pregroup-tree" />
+
+**pregroup tree**
+
+A compact tree-like representation of a [pregroup](/lambeq/glossary/#term-pregroup-grammar) diagram. Each node in the tree represents a token in the sentence, the root of the tree is the head word in the sentence (i.e a word with free wires), and the branches of the tree represent cups identifying input wires to the parent node.
+
+<a id="term-pytket" />
+
+**pytket**
+
+A Python interface for the [tket](/lambeq/glossary/#term-tket) compiler.
+
+<a id="term-pytorch" />
+
+**PyTorch**
+
+An open source machine learning framework primarily developed by Meta AI.
+
+<a id="term-qiskit" />
+
+**Qiskit**
+
+An open-source SDK developed by IBM Research for working with quantum computers at the level of circuits, pulses, and algorithms.
+
+<a id="term-quantum-circuit" />
+
+**quantum circuit**
+
+A sequence of [quantum gates](/lambeq/glossary/#term-quantum-gate), measurements, and initializations of [qubits](/lambeq/glossary/#term-qubit) that expresses a computation in a quantum computer. The purpose of `lambeq` is to convert sentences into quantum circuits that can be evaluated on quantum hardware.
+
+<a id="term-quantum-gate" />
+
+**quantum gate**
+
+An atomic unit of computation operating on a small number of [qubits](/lambeq/glossary/#term-qubit). Quantum gates are the building blocks of [quantum circuits](/lambeq/glossary/#term-quantum-circuit).
+
+<a id="term-quantum-nlp-qnlp" />
+
+**quantum NLP (QNLP)**
+
+The design and implementation of [NLP](/lambeq/glossary/#term-natural-language-processing-nlp) models that exploit certain quantum phenomena such as superposition, entanglement, and interference to perform language-related tasks on quantum hardware.
+
+<a id="term-qubit" />
+
+**qubit**
+
+The quantum analogue of a bit and the most basic unit of information carrier in a quantum computer. It is associated with a property of a physical system such as the spin of an electron (\"up\" or \"down\" along some axis), and has a state that lives in a 2-dimensional complex vector space.
+
+<a id="term-reader" />
+
+**reader**
+
+In `lambeq`, an object that translates a sentence into a [string diagram](/lambeq/glossary/#term-string-diagram) based on a certain [compositional scheme](/lambeq/glossary/#term-compositional-model). Versions of a [bag-of-words](/lambeq/glossary/#term-bag-of-words) model and a [word-sequence model](/lambeq/glossary/#term-word-sequence-model) are implemented in `lambeq` using readers.
+
+<a id="term-rewrite-rule" />
+
+**rewrite rule**
+
+A [functorial](/lambeq/glossary/#term-functor) transformation that changes the wiring of a specific box (representing a word) in a [string diagram](/lambeq/glossary/#term-string-diagram) to simplify the diagram or to make it more amenable to implementation on the hardware of choice.
+
+<a id="term-rewriter" />
+
+**rewriter**
+
+An object that acts on a [string diagram](/lambeq/glossary/#term-string-diagram), applying some form of [functorial](/lambeq/glossary/#term-functor) or procedural transformation.
+
+<a id="term-rigid-category" />
+
+**rigid category**
+
+A [monoidal category](/lambeq/glossary/#term-monoidal-category) where every object $A$ has a left dual $A^l$ and a right dual $A^r$, both equipped with [cup](/lambeq/glossary/#term-cup) and [cap](/lambeq/glossary/#term-cap) morphisms obeying the so-called [snake equations](/lambeq/glossary/#term-snake-equations). A [pregroup grammar](/lambeq/glossary/#term-pregroup-grammar) is an example of a rigid category.
+
+<a id="term-sandwich-functor" />
+
+**sandwich functor**
+
+A [functor](/lambeq/glossary/#term-functor) that converts [frames](/lambeq/glossary/#term-frame) in a [DisCoCirc](/lambeq/glossary/#term-discocirc) string diagram into a sequence of unitary boxes that can be trained using `lambeq`\'s machine learning features. The functor works by placing trainable unitaries in the beginning and the end of the frame, as well as between each argument in it.
+
+<a id="term-shots" />
+
+**shots**
+
+A collection of measurement outcomes from a particular [quantum circuit](/lambeq/glossary/#term-quantum-circuit).
+
+<a id="term-snake-equations" />
+
+**snake equations**
+
+Identities that hold between the dual objects of a [monoidal category](/lambeq/glossary/#term-monoidal-category) and allow the \"yanking\" of wires and the rewriting and simplification of diagrams. In `lambeq`, the [`normal_form`](/lambeq/api/lambeq.backend/grammar#lambeq.backend.grammar.Diagram.normal_form) method uses the snake equations in order to \"stretch\" the wires of a diagram and provide a normal form for it.
+
+<a id="term-spacy" />
+
+**spaCy**
+
+A powerful NLP toolkit developed by Explosion. `lambeq` utilises spaCy models for tasks such as [tokenisation](/lambeq/glossary/#term-tokenisation) and [coreference resolution](/lambeq/glossary/#term-coreference-resolution).
+
+<a id="term-spider" />
+
+**spider**
+
+Another name for a [Frobenius algebra](/lambeq/glossary/#term-frobenius-algebra).
+
+<a id="term-string-diagram" />
+
+**string diagram**
+
+A diagrammatic representation that reflects computations in a [monoidal category](/lambeq/glossary/#term-monoidal-category), an abstraction well-suited to model the way a quantum computer works and processes data. String diagrams are the native form of representing sentences in `lambeq` and [DisCoCat](/lambeq/glossary/#term-discocat), since they remain close to quantum circuits, yet are independent of any low-level design decisions depending on hardware. They can be seen as enriched [tensor networks](/lambeq/glossary/#term-tensor-network).
+
+<a id="term-syntax-tree" />
+
+**syntax tree**
+
+A hierarchical representation of a sentence that reflects the syntactic relationships between the words, given a specific grammar. The first step in `lambeq`\'s [pipeline](/lambeq/guide/pipeline/) given a sentence is to produce a [CCG](/lambeq/glossary/#term-combinatory-categorial-grammar-ccg) syntax tree for it, which is then converted into a [string diagram](/lambeq/glossary/#term-string-diagram).
+
+<a id="term-symbol" />
+
+**symbol**
+
+In `lambeq`, a symbol corresponds to a trainable part of a [tensor network](/lambeq/glossary/#term-tensor-network) or a [quantum circuit](/lambeq/glossary/#term-quantum-circuit). In the classical case, symbols are associated with tensors in a [tensor network](/lambeq/glossary/#term-tensor-network), while in the quantum case symbols represent numbers expressing rotation angles on [qubits](/lambeq/glossary/#term-qubit) in a [quantum circuit](/lambeq/glossary/#term-quantum-circuit).
+
+<a id="term-symmetric-monoidal-category" />
+
+**symmetric monoidal category**
+
+A [monoidal category](/lambeq/glossary/#term-monoidal-category) equipped with [swaps](/lambeq/glossary/#term-swap), such that, for any two objects $A$ and $B$, we have $A\otimes B \cong B\otimes A$. `lambeq`\'s string diagrams are expressed in a symmetric monoidal category.
+
+<a id="term-swap" />
+
+**swap**
+
+A crossing of wires in a [symmetric monoidal category](/lambeq/glossary/#term-symmetric-monoidal-category). `lambeq` uses swaps in order to translate *crossed composition* rules in [CCG](/lambeq/glossary/#term-combinatory-categorial-grammar-ccg) derivations into a [string diagram](/lambeq/glossary/#term-string-diagram) form ([Yeung & Kartsaklis, 2021](/lambeq/bibliography/#bib-yeung_2021)).
+
+<a id="term-tensor-network" />
+
+**tensor network**
+
+A directed acyclic graph expressing a (multi-)linear computation between tensors. The vertices of the graph are multi-linear tensor maps, and the edges correspond to vector spaces. Tensor networks have found many applications in quantum mechanics. `lambeq`\'s [string diagrams](/lambeq/glossary/#term-string-diagram) can be seen as tensor networks with additional properties.
+
+<a id="term-tensor-train" />
+
+**tensor train**
+
+A basic [tensor network](/lambeq/glossary/#term-tensor-network) in which all tensors have the same shape and each tensor is connected to the next one following a predefined order. In `lambeq`, tensor trains are used to implement [word-sequence models](/lambeq/glossary/#term-word-sequence-model).
+
+<a id="term-tket" />
+
+**tket**
+
+Stylised $\textrm{t}|\textrm{ket}\rangle$. A quantum software development platform produced by Cambridge Quantum. The heart of `tket` is a language-agnostic optimising compiler designed to generate code for a variety of NISQ devices, which has several features designed to minimise the influence of device error.
+
+<a id="term-tokenisation" />
+
+**tokenisation**
+
+The process of breaking down a text or sentence into smaller units called tokens. In `lambeq` these tokens correspond to words.
+
+<a id="term-trainer" />
+
+**trainer**
+
+In `lambeq`, a trainer is a class related to a given backend (for example PyTorch, NumPy, [tket](/lambeq/glossary/#term-tket) and so on) that is used for supervised learning. A trainer is always paired with a matching [model](/lambeq/glossary/#term-model), a structure that contains the trainable weights and other parameters of the model.
+
+<a id="term-tree-reader" />
+
+**tree reader**
+
+In `lambeq`, a tree [reader](/lambeq/glossary/#term-reader) converts a sentence into a [monoidal](/lambeq/glossary/#term-monoidal-category) diagram by following directly its [CCG](/lambeq/glossary/#term-combinatory-categorial-grammar-ccg) [syntax tree](/lambeq/glossary/#term-syntax-tree), as provided by a [parser](/lambeq/glossary/#term-parser). In other words, no explicit [pregroup](/lambeq/glossary/#term-pregroup-grammar) diagram is generated. Composition takes place by boxes that combine word states based on the grammatical rules found in the tree.
+
+<a id="term-word-sequence-model" />
+
+**word-sequence model**
+
+A [compositional model](/lambeq/glossary/#term-compositional-model) that respects the order of words in a sentence, but does not take into account any other syntactic information.
