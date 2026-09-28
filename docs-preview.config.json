@@ -1,0 +1,8 @@
+{
+  "basePath": "/lambeq",
+  "contentDir": "build/mdx/content/lambeq",
+  "publicDir": "build/mdx/public",
+  "navTitles": "build/mdx/content/lambeq-nav-titles.json",
+  "navNesting": "build/mdx/content/lambeq-nav-nesting.json",
+  "generate": "docs-build"
+}

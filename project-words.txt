@@ -1,0 +1,15 @@
+# lambeq-specific vocabulary for the documentation spell checker.
+#
+# Picked up automatically by `docs-check-spelling` / `docs-check-prose`
+# (@quantinuum/docs-checks), both in this repo's CI and in the central
+# documentation build, where it applies only to lambeq's pages. Terms shared
+# across products belong in the company-wide list in docs-checks instead.
+#
+# One word per line. Lines starting with '#' are ignored.
+ccgbank
+combinatory
+coreference
+discocirc
+functorially
+postselections
+supermaps

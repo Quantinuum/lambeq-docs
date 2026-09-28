@@ -1,0 +1,7 @@
+/.quarto/
+**/*.quarto_ipynb
+/.venv/
+/reference/
+/_api_build/
+/objects.json
+__pycache__/

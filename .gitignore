@@ -243,3 +243,6 @@ docs/puml/img
 # ignore runs and related artifacts
 **/runs/
 **/*.lt
+
+# link-checker result cache
+.lycheecache

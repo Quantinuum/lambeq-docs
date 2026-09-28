@@ -1,0 +1,86 @@
+# quartodoc project for the lambeq Python API reference.
+# `quartodoc build` introspects the installed lambeq package (via griffe) and
+# writes .qmd pages into reference/, which `docs-build` (@quantinuum/docs-build)
+# ingests as MDX into the api/ section of the docs.
+#
+# Module paths mirror the Sphinx `.. automodule::` directives in
+# lambeq-docs/docs/api/*.rst. Multi-submodule pages (backend, core, experimental)
+# list each submodule; they are recombined into one page per top-level module
+# during ingest.
+#
+# Per-item `include_imports: true` is set ONLY on the aggregator modules that
+# re-export members via `__all__` (ansatz, bobcat, rewrite, text2diagram,
+# tokeniser, training). Leaf submodules (backend.*, core.*) define their members
+# in place and must NOT use include_imports, otherwise griffe tries to resolve
+# imported typing names (e.g. Callable) and crashes. `experimental.discocirc`
+# needs `dynamic: true` because static analysis of the nested package fails.
+project:
+  type: default
+  output-dir: _api_build
+
+format:
+  gfm:
+    toc: false
+
+quartodoc:
+  package: lambeq
+  # lambeq docstrings are numpydoc-style (quartodoc's default; stated explicitly
+  # because the sibling projects override it to google/sphinx).
+  parser: numpy
+  dir: reference
+  sidebar: false
+  render_interlinks: false
+  options:
+    children: embedded
+  sections:
+    - title: lambeq.ansatz
+      contents:
+        - name: ansatz
+          include_imports: true
+    - title: lambeq.backend
+      contents:
+        - backend.grammar
+        - backend.tensor
+        - backend.quantum
+        - backend.numerical_backend
+        - backend.converters.discopy
+        - backend.converters.tk
+        # pennylane imports fail at runtime (autoray NumpyMimic removed upstream);
+        # document it via static analysis instead of dynamic import.
+        - name: backend.pennylane
+          dynamic: false
+        - backend.drawing
+        - backend.snake_removal
+    - title: lambeq.bobcat
+      contents:
+        - name: bobcat
+          include_imports: true
+    - title: lambeq.core
+      contents:
+        - core.globals
+        - core.types
+        - core.utils
+    - title: lambeq.experimental
+      # SKIPPED: lambeq/experimental/ is a PEP 420 namespace package (no
+      # __init__.py), which griffe<1 (required by quartodoc 0.11.1) cannot
+      # traverse statically, and quartodoc's dynamic resolver can't attribute-walk
+      # to it either (lambeq.experimental is not auto-imported). Runtime import
+      # works, so Sphinx autodoc handled it; revisit if quartodoc/griffe gain
+      # namespace-package support, or add a lambeq experimental/__init__.py upstream.
+      contents: []
+    - title: lambeq.rewrite
+      contents:
+        - name: rewrite
+          include_imports: true
+    - title: lambeq.text2diagram
+      contents:
+        - name: text2diagram
+          include_imports: true
+    - title: lambeq.tokeniser
+      contents:
+        - name: tokeniser
+          include_imports: true
+    - title: lambeq.training
+      contents:
+        - name: training
+          include_imports: true
