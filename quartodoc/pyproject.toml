@@ -1,6 +1,6 @@
 # uv-managed environment for generating the lambeq Python API reference with
 # quartodoc. Not a distributable package — just a locked, reproducible env,
-# kept separate from the repo's Sphinx-era dependencies because quartodoc pulls
+# kept separate from the repo's own (notebook) dependencies because quartodoc pulls
 # conflicting pins.
 #
 # lambeq is pinned to the exact commit the docs (lambeq-docs tag 0.5.0-002,

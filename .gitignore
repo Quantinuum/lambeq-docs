@@ -115,9 +115,6 @@ instance/
 # Scrapy stuff:
 .scrapy
 
-# Sphinx documentation
-docs/_build/
-
 # PyBuilder
 .pybuilder/
 target/
@@ -237,7 +234,6 @@ pyrightconfig.json
 # ignore the built documentation
 docs/_*
 !docs/_static/
-!docs/_templates/
 docs/puml/img
 
 # ignore runs and related artifacts

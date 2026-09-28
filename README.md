@@ -84,26 +84,35 @@ install pytest in the same environment using pip.
 
 ## Building documentation
 
-To build the documentation, first clone locally this repository and install the required dependencies:
+The prose pages are MDX under `docs/`; the notebooks under `docs/` and the API
+reference (from `quartodoc/`) are rendered into MDX at build time. The tooling
+comes from the [documentation-ui](https://github.com/quantinuum-dev/documentation-ui)
+repository: check it out (and build it) beside this one, then from this
+repository's root run:
 
 ```bash
-pip install -r requirements.txt
+# Generate the notebook + API pages and build a static site into build/site
+node <path-to>/documentation-ui/docs-preview/bin/docs-preview.mjs build --full
+
+# Or serve a live preview at http://localhost:3000/lambeq/
+node <path-to>/documentation-ui/docs-preview/bin/docs-preview.mjs dev --full
 ```
 
-then run the command:
+Generating needs [Quarto](https://quarto.org/), [pandoc](https://pandoc.org/)
+and [uv](https://docs.astral.sh/uv/). After the first `--full` run, drop
+`--full` to reuse the generated pages. Serve a static build from its root with
+any file server, e.g. `npx serve build/site`.
+
+CI checks spelling and links with:
 
 ```bash
-./build-docs.sh
+node <path-to>/documentation-ui/docs-checks/bin/check-spelling.mjs docs build/mdx/content/lambeq \
+  --api-reference build/mdx/content/lambeq/api
+node <path-to>/documentation-ui/docs-checks/bin/check-links.mjs build/site --base-path /lambeq
 ```
 
-The docs will be under the `build` directory just under the repository root. To serve it locally:
-
-```bash
-cd build
-python -m http.server
-```
-
-and then go to `http://localhost:8000` to load the index page.
+Words specific to lambeq that the spell checker should accept go in
+`project-words.txt`.
 
 ## License
 

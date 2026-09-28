@@ -3,8 +3,8 @@
 # writes .qmd pages into reference/, which `docs-build` (@quantinuum/docs-build)
 # ingests as MDX into the api/ section of the docs.
 #
-# Module paths mirror the Sphinx `.. automodule::` directives in
-# lambeq-docs/docs/api/*.rst. Multi-submodule pages (backend, core, experimental)
+# Module paths mirror the `.. automodule::` directives of the former Sphinx
+# docs/api/*.rst pages. Multi-submodule pages (backend, core, experimental)
 # list each submodule; they are recombined into one page per top-level module
 # during ingest.
 #
