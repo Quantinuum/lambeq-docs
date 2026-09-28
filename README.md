@@ -103,6 +103,10 @@ and [uv](https://docs.astral.sh/uv/). After the first `--full` run, drop
 `--full` to reuse the generated pages. Serve a static build from its root with
 any file server, e.g. `npx serve build/site`.
 
+`docs/public/lambeq-assets/` holds only the images the MDX prose pages use;
+notebook output images and downloads are extracted from the notebooks at build
+time.
+
 CI checks spelling and links with:
 
 ```bash
