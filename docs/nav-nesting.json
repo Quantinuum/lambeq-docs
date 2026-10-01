@@ -1,0 +1,49 @@
+{
+  "/lambeq/guide/ml_lambeq": [
+    "/lambeq/guide/ml_basic",
+    "/lambeq/guide/ml_use-cases",
+    "/lambeq/guide/ml_models"
+  ],
+  "/lambeq/low-level": [
+    "/lambeq/tutorials/monoidal",
+    "/lambeq/tutorials/discocat"
+  ],
+  "/lambeq/manual-training": [
+    "/lambeq/tutorials/training-symbols",
+    "/lambeq/tutorials/training-usecase"
+  ],
+  "/lambeq/nlp-101": [
+    "/lambeq/nlp-101/nlp-intro",
+    "/lambeq/nlp-101/nlp-data",
+    "/lambeq/nlp-101/nlp-class",
+    "/lambeq/nlp-101/nlp-ml",
+    "/lambeq/nlp-101/nlp-refs"
+  ],
+  "/lambeq/notebooks": [
+    "/lambeq/examples/tokenisation",
+    "/lambeq/examples/unk-words",
+    "/lambeq/examples/parser",
+    "/lambeq/examples/reader",
+    "/lambeq/examples/tree-reader",
+    "/lambeq/examples/rewrite",
+    "/lambeq/examples/circuit",
+    "/lambeq/examples/tensor",
+    "/lambeq/examples/rotosolve-optimizer",
+    "/lambeq/examples/classical-pipeline",
+    "/lambeq/examples/quantum-pipeline",
+    "/lambeq/examples/quantum-pipeline-jax",
+    "/lambeq/examples/pennylane"
+  ],
+  "/lambeq/sent2circ": [
+    "/lambeq/tutorials/sentence-input",
+    "/lambeq/tutorials/rewrite",
+    "/lambeq/tutorials/parameterise"
+  ],
+  "/lambeq/training": [
+    "/lambeq/tutorials/trainer-classical",
+    "/lambeq/tutorials/trainer-quantum",
+    "/lambeq/tutorials/trainer-hybrid",
+    "/lambeq/tutorials/discocirc-mc-task",
+    "/lambeq/manual-training"
+  ]
+}

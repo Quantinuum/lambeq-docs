@@ -1,0 +1,785 @@
+{
+  "labels": {
+    "api-ansatz": {
+      "url": "/lambeq/api",
+      "anchor": "lambeq.ansatz",
+      "title": "lambeq.ansatz"
+    },
+    "api-rewrite": {
+      "url": "/lambeq/api",
+      "anchor": "lambeq.rewrite",
+      "title": "lambeq.rewrite"
+    },
+    "api-text2diagram": {
+      "url": "/lambeq/api",
+      "anchor": "lambeq.text2diagram",
+      "title": "lambeq.text2diagram"
+    },
+    "backend-api": {
+      "url": "/lambeq/api",
+      "anchor": "lambeq.backend",
+      "title": "lambeq.backend"
+    },
+    "fig-ccgbank": {
+      "url": "/lambeq/guide/parsing/",
+      "anchor": "",
+      "title": "Syntactic parsing"
+    },
+    "fig-pipeline": {
+      "url": "/lambeq/guide/pipeline/",
+      "anchor": "",
+      "title": "Pipeline"
+    },
+    "fig-stringdiagram": {
+      "url": "/lambeq/guide/string-diagrams/",
+      "anchor": "pregroup-grammars",
+      "title": "Pregroup grammars"
+    },
+    "fig-usecases": {
+      "url": "/lambeq/guide/ml_use-cases/",
+      "anchor": "exact-non-shot-based-simulation-of-quantum-circuits-on-classical-hardware",
+      "title": "Exact (non shot-based) simulation of quantum circuits on classical hardware"
+    },
+    "open-issue": {
+      "url": "/lambeq/CONTRIBUTING/",
+      "anchor": "opening-an-issue",
+      "title": "Opening an issue"
+    },
+    "rel-0.1.0": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.1.1": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.1.2": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.2.0": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.2.1": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.2.2": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.2.3": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.2.4": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.2.5": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.2.6": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.2.7": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.2.8": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.3.0": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.3.1": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.3.2": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.3.3": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.4.0": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.4.1": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.4.2": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.4.3": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "rel-0.5.0": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "sec-advanced": {
+      "url": "/lambeq/low-level/",
+      "anchor": "",
+      "title": "Advanced: low-level lambeq"
+    },
+    "sec-advanced_options": {
+      "url": "/lambeq/guide/cli/",
+      "anchor": "strict-pregroups-mode",
+      "title": "Strict pregroups mode"
+    },
+    "sec-basic_usage": {
+      "url": "/lambeq/guide/cli/",
+      "anchor": "basic-usage",
+      "title": "Basic usage"
+    },
+    "sec-bibliography": {
+      "url": "/lambeq/bibliography/",
+      "anchor": "",
+      "title": "Bibliography"
+    },
+    "sec-cite": {
+      "url": "/lambeq/cite/",
+      "anchor": "",
+      "title": "How to cite"
+    },
+    "sec-cli": {
+      "url": "/lambeq/guide/cli/",
+      "anchor": "",
+      "title": "Command-line interface"
+    },
+    "sec-contributing": {
+      "url": "/lambeq/CONTRIBUTING/",
+      "anchor": "",
+      "title": "Contributing to lambeq"
+    },
+    "sec-detailed_options": {
+      "url": "/lambeq/guide/cli/",
+      "anchor": "detailed-options",
+      "title": "Detailed options"
+    },
+    "sec-discocirc_training": {
+      "url": "/lambeq/tutorials/discocirc-mc-task/",
+      "anchor": "",
+      "title": "Training: DisCoCirc"
+    },
+    "sec-evaluation": {
+      "url": "/lambeq/nlp-101/nlp-class/",
+      "anchor": "evaluation-metrics",
+      "title": "Evaluation metrics"
+    },
+    "sec-examples": {
+      "url": "/lambeq/notebooks/",
+      "anchor": "",
+      "title": "Code examples"
+    },
+    "sec-extend": {
+      "url": "/lambeq/tutorials/extend-lambeq/",
+      "anchor": "",
+      "title": "Advanced: Extending lambeq"
+    },
+    "sec-glossary": {
+      "url": "/lambeq/glossary/",
+      "anchor": "",
+      "title": "Glossary"
+    },
+    "sec-installation": {
+      "url": "/lambeq/installation/",
+      "anchor": "",
+      "title": "Installation"
+    },
+    "sec-lambeq_comp": {
+      "url": "/lambeq/guide/lambeq-basic/",
+      "anchor": "",
+      "title": "lambeq and compositionality"
+    },
+    "sec-licence": {
+      "url": "/lambeq/licence/",
+      "anchor": "",
+      "title": "Licence"
+    },
+    "sec-manual-training": {
+      "url": "/lambeq/manual-training/",
+      "anchor": "",
+      "title": "Manual training"
+    },
+    "sec-ml-lambeq": {
+      "url": "/lambeq/guide/ml_lambeq/",
+      "anchor": "",
+      "title": "Machine learning with lambeq"
+    },
+    "sec-models": {
+      "url": "/lambeq/guide/ml_models/",
+      "anchor": "",
+      "title": "Choosing a model"
+    },
+    "sec-nlp-data": {
+      "url": "/lambeq/nlp-101/nlp-data/",
+      "anchor": "",
+      "title": "Working with text data"
+    },
+    "sec-nlp-intro": {
+      "url": "/lambeq/nlp-101/nlp-intro/",
+      "anchor": "",
+      "title": "Introduction"
+    },
+    "sec-nlp-ml": {
+      "url": "/lambeq/nlp-101/nlp-ml/",
+      "anchor": "",
+      "title": "Machine learning best practices"
+    },
+    "sec-nlp-refs": {
+      "url": "/lambeq/nlp-101/nlp-refs/",
+      "anchor": "",
+      "title": "References for further study"
+    },
+    "sec-nlp-tasks": {
+      "url": "/lambeq/nlp-101/nlp-intro/",
+      "anchor": "tasks-and-applications",
+      "title": "Tasks and applications"
+    },
+    "sec-nlp101": {
+      "url": "/lambeq/nlp-101/",
+      "anchor": "",
+      "title": "NLP-101"
+    },
+    "sec-numpymodel": {
+      "url": "/lambeq/guide/ml_models/",
+      "anchor": "numpymodel",
+      "title": "NumpyModel"
+    },
+    "sec-parsing": {
+      "url": "/lambeq/guide/parsing/",
+      "anchor": "",
+      "title": "Syntactic parsing"
+    },
+    "sec-pennylanemodel": {
+      "url": "/lambeq/guide/ml_models/",
+      "anchor": "pennylanemodel",
+      "title": "PennyLaneModel"
+    },
+    "sec-pipeline": {
+      "url": "/lambeq/guide/pipeline/",
+      "anchor": "",
+      "title": "Pipeline"
+    },
+    "sec-pregroup-grammars": {
+      "url": "/lambeq/guide/string-diagrams/",
+      "anchor": "pregroup-grammars",
+      "title": "Pregroup grammars"
+    },
+    "sec-pregroups_mode": {
+      "url": "/lambeq/guide/cli/",
+      "anchor": "strict-pregroups-mode",
+      "title": "Strict pregroups mode"
+    },
+    "sec-preproc": {
+      "url": "/lambeq/tutorials/sentence-input/",
+      "anchor": "pre-processing-and-tokenisation",
+      "title": "Pre-processing and tokenisation"
+    },
+    "sec-preprocessing": {
+      "url": "/lambeq/nlp-101/nlp-data/",
+      "anchor": "text-pre-processing",
+      "title": "Text pre-processing"
+    },
+    "sec-pytorchmodel": {
+      "url": "/lambeq/guide/ml_models/",
+      "anchor": "pytorchmodel",
+      "title": "PytorchModel"
+    },
+    "sec-pytorchquantummodel": {
+      "url": "/lambeq/guide/ml_models/",
+      "anchor": "pytorchquantummodel",
+      "title": "PytorchQuantumModel"
+    },
+    "sec-release-notes": {
+      "url": "/lambeq/release-notes/",
+      "anchor": "",
+      "title": "Release notes"
+    },
+    "sec-sandwich": {
+      "url": "/lambeq/tutorials/discocirc-basics/",
+      "anchor": "the-sandwich-functor",
+      "title": "The \"sandwich\" functor"
+    },
+    "sec-sent_input": {
+      "url": "/lambeq/tutorials/sentence-input/",
+      "anchor": "",
+      "title": "Step 1. Sentence input"
+    },
+    "sec-sent2circ": {
+      "url": "/lambeq/sent2circ/",
+      "anchor": "",
+      "title": "From sentence to circuit"
+    },
+    "sec-string-diagrams": {
+      "url": "/lambeq/guide/string-diagrams/",
+      "anchor": "",
+      "title": "String diagrams"
+    },
+    "sec-text2circ": {
+      "url": "/lambeq/tutorials/discocirc-basics/",
+      "anchor": "",
+      "title": "From text to circuit"
+    },
+    "sec-tketmodel": {
+      "url": "/lambeq/guide/ml_models/",
+      "anchor": "tketmodel",
+      "title": "TketModel"
+    },
+    "sec-tok_example": {
+      "url": "/lambeq/examples/tokenisation/",
+      "anchor": "",
+      "title": "Tokenisation"
+    },
+    "sec-tokenization": {
+      "url": "/lambeq/nlp-101/nlp-data/",
+      "anchor": "tokenization",
+      "title": "Tokenization"
+    },
+    "sec-train-pl": {
+      "url": "/lambeq/tutorials/trainer-hybrid/",
+      "anchor": "",
+      "title": "Training: Hybrid case"
+    },
+    "sec-train-quant": {
+      "url": "/lambeq/tutorials/trainer-quantum/",
+      "anchor": "",
+      "title": "Training: Quantum case"
+    },
+    "sec-train-tn": {
+      "url": "/lambeq/tutorials/trainer-classical/",
+      "anchor": "",
+      "title": "Training: Classical case"
+    },
+    "sec-training": {
+      "url": "/lambeq/training/",
+      "anchor": "",
+      "title": "Training tutorials"
+    },
+    "sec-tree-readers": {
+      "url": "/lambeq/tutorials/sentence-input/",
+      "anchor": "tree-readers",
+      "title": "Tree readers"
+    },
+    "sec-troubleshooting": {
+      "url": "/lambeq/troubleshooting/",
+      "anchor": "",
+      "title": "Troubleshooting"
+    },
+    "sec-unk": {
+      "url": "/lambeq/examples/unk-words/",
+      "anchor": "",
+      "title": "Handling unknown words"
+    },
+    "sec-usecases": {
+      "url": "/lambeq/guide/ml_use-cases/",
+      "anchor": "",
+      "title": "lambeq use cases"
+    },
+    "tbl-ansatze": {
+      "url": "/lambeq/tutorials/parameterise/",
+      "anchor": "classical-case",
+      "title": "Classical case"
+    },
+    "tbl-plane-usecases": {
+      "url": "/lambeq/guide/ml_models/",
+      "anchor": "pytorchmodel",
+      "title": "PytorchModel"
+    },
+    "tbl-quantumservices": {
+      "url": "/lambeq/guide/ml_use-cases/",
+      "anchor": "evaluation-of-classical-tensor-based-models",
+      "title": "Evaluation of classical tensor-based models"
+    },
+    "tbl-tree-rewrites": {
+      "url": "/lambeq/tutorials/discocirc-basics/",
+      "anchor": "pruning-infrequent-nouns",
+      "title": "Pruning infrequent nouns"
+    },
+    "tbl-usecases": {
+      "url": "/lambeq/guide/ml_use-cases/",
+      "anchor": "exact-non-shot-based-simulation-of-quantum-circuits-on-classical-hardware",
+      "title": "Exact (non shot-based) simulation of quantum circuits on classical hardware"
+    },
+    "uc1": {
+      "url": "/lambeq/guide/ml_use-cases/",
+      "anchor": "exact-non-shot-based-simulation-of-quantum-circuits-on-classical-hardware",
+      "title": "Exact (non shot-based) simulation of quantum circuits on classical hardware"
+    },
+    "uc2": {
+      "url": "/lambeq/guide/ml_use-cases/",
+      "anchor": "shot-based-simulation-of-quantum-circuits-on-classical-hardware",
+      "title": "Shot-based simulation of quantum circuits on classical hardware"
+    },
+    "uc3": {
+      "url": "/lambeq/guide/ml_use-cases/",
+      "anchor": "evaluation-of-quantum-circuits-on-a-quantum-computer",
+      "title": "Evaluation of quantum circuits on a quantum computer"
+    },
+    "uc4": {
+      "url": "/lambeq/guide/ml_use-cases/",
+      "anchor": "evaluation-of-classical-tensor-based-models",
+      "title": "Evaluation of classical tensor-based models"
+    },
+    "uc5": {
+      "url": "/lambeq/guide/ml_use-cases/",
+      "anchor": "hybrid-classicalquantum-simulations-on-classical-hardware",
+      "title": "Hybrid classical/quantum simulations on classical hardware"
+    },
+    "wordpiece": {
+      "url": "/lambeq/nlp-101/nlp-data/",
+      "anchor": "handling-unknown-words",
+      "title": "Handling unknown words"
+    },
+    "wordtok": {
+      "url": "/lambeq/nlp-101/nlp-data/",
+      "anchor": "handling-unknown-words",
+      "title": "Handling unknown words"
+    }
+  },
+  "terms": {
+    "adjoint": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-adjoint"
+    },
+    "ansatz (plural: ansätze)": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-ansatz-plural-ans-tze"
+    },
+    "bag-of-words": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-bag-of-words"
+    },
+    "bobcat": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-bobcat"
+    },
+    "cap": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-cap"
+    },
+    "categorical quantum mechanics (cqm)": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-categorical-quantum-mechanics-cqm"
+    },
+    "category": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-category"
+    },
+    "ccgbank": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-ccgbank"
+    },
+    "combinatory categorial grammar (ccg)": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-combinatory-categorial-grammar-ccg"
+    },
+    "compact closed category": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-compact-closed-category"
+    },
+    "compositional model": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-compositional-model"
+    },
+    "coreference resolution": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-coreference-resolution"
+    },
+    "cup": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-cup"
+    },
+    "depccg": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-depccg"
+    },
+    "discocat": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-discocat"
+    },
+    "discocirc": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-discocirc"
+    },
+    "discopy": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-discopy"
+    },
+    "frame": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-frame"
+    },
+    "frobenius algebra": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-frobenius-algebra"
+    },
+    "functor": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-functor"
+    },
+    "iqp circuit": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-iqp-circuit"
+    },
+    "loss function": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-loss-function"
+    },
+    "matrix product state (mps)": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-matrix-product-state-mps"
+    },
+    "model": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-model"
+    },
+    "monoidal category": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-monoidal-category"
+    },
+    "natural language processing (nlp)": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-natural-language-processing-nlp"
+    },
+    "nisq": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-nisq"
+    },
+    "noise": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-noise"
+    },
+    "oncilla": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-oncilla"
+    },
+    "parser": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-parser"
+    },
+    "pennylane": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-pennylane"
+    },
+    "post-selection": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-post-selection"
+    },
+    "pregroup grammar": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-pregroup-grammar"
+    },
+    "pregroup tree": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-pregroup-tree"
+    },
+    "pytket": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-pytket"
+    },
+    "pytorch": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-pytorch"
+    },
+    "qiskit": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-qiskit"
+    },
+    "quantum circuit": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-quantum-circuit"
+    },
+    "quantum gate": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-quantum-gate"
+    },
+    "quantum nlp (qnlp)": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-quantum-nlp-qnlp"
+    },
+    "qubit": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-qubit"
+    },
+    "reader": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-reader"
+    },
+    "rewrite rule": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-rewrite-rule"
+    },
+    "rewriter": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-rewriter"
+    },
+    "rigid category": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-rigid-category"
+    },
+    "sandwich functor": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-sandwich-functor"
+    },
+    "shots": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-shots"
+    },
+    "snake equations": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-snake-equations"
+    },
+    "spacy": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-spacy"
+    },
+    "spider": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-spider"
+    },
+    "string diagram": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-string-diagram"
+    },
+    "swap": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-swap"
+    },
+    "symbol": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-symbol"
+    },
+    "symmetric monoidal category": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-symmetric-monoidal-category"
+    },
+    "syntax tree": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-syntax-tree"
+    },
+    "tensor network": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-tensor-network"
+    },
+    "tensor train": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-tensor-train"
+    },
+    "tket": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-tket"
+    },
+    "tokenisation": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-tokenisation"
+    },
+    "trainer": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-trainer"
+    },
+    "tree reader": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-tree-reader"
+    },
+    "word-sequence model": {
+      "url": "/lambeq/glossary/",
+      "anchor": "term-word-sequence-model"
+    }
+  },
+  "titles": {
+    "bibliography": "Bibliography",
+    "cite": "How to cite",
+    "CONTRIBUTING": "Contributing to lambeq",
+    "examples/circuit": "Circuit",
+    "examples/classical-pipeline": "Classical pipeline",
+    "examples/parser": "Parser",
+    "examples/pennylane": "Training hybrid models using the Pennylane backend",
+    "examples/quantum-pipeline": "Quantum pipeline using the Quantum Trainer",
+    "examples/quantum-pipeline-jax": "Quantum pipeline using JAX backend",
+    "examples/reader": "Reader",
+    "examples/rewrite": "Rewrite",
+    "examples/rotosolve-optimizer": "Rotosolve optimizer",
+    "examples/tensor": "Tensor",
+    "examples/tokenisation": "Tokenisation",
+    "examples/tree-reader": "Tree reader",
+    "examples/unk-words": "Handling unknown words",
+    "genindex": "Index",
+    "glossary": "Glossary",
+    "guide/cli": "Command-line interface",
+    "guide/lambeq-basic": "lambeq and compositionality",
+    "guide/ml_basic": "Basic concepts",
+    "guide/ml_lambeq": "Machine learning with lambeq",
+    "guide/ml_models": "Choosing a model",
+    "guide/ml_use-cases": "lambeq use cases",
+    "guide/parsing": "Syntactic parsing",
+    "guide/pipeline": "Pipeline",
+    "guide/string-diagrams": "String diagrams",
+    "index": "index",
+    "installation": "Installation",
+    "intro": "What is lambeq?",
+    "licence": "Licence",
+    "low-level": "Advanced: low-level lambeq",
+    "manual-training": "Manual training",
+    "nlp-101": "NLP-101",
+    "nlp-101/nlp-class": "Text classification",
+    "nlp-101/nlp-data": "Working with text data",
+    "nlp-101/nlp-intro": "Introduction",
+    "nlp-101/nlp-ml": "Machine learning best practices",
+    "nlp-101/nlp-refs": "References for further study",
+    "notebooks": "Code examples",
+    "release-notes": "Release notes",
+    "sent2circ": "From sentence to circuit",
+    "support": "User support",
+    "training": "Training tutorials",
+    "troubleshooting": "Troubleshooting",
+    "tutorials/discocat": "DisCoCat in lambeq",
+    "tutorials/discocirc-basics": "From text to circuit",
+    "tutorials/discocirc-mc-task": "Training: DisCoCirc",
+    "tutorials/extend-lambeq": "Advanced: Extending lambeq",
+    "tutorials/monoidal": "Monoidal categories in lambeq",
+    "tutorials/parameterise": "Step 3. Parameterisation",
+    "tutorials/quickstart": "Quickstart",
+    "tutorials/rewrite": "Step 2. Diagram rewriting",
+    "tutorials/sentence-input": "Step 1. Sentence input",
+    "tutorials/trainer-classical": "Training: Classical case",
+    "tutorials/trainer-hybrid": "Training: Hybrid case",
+    "tutorials/trainer-quantum": "Training: Quantum case",
+    "tutorials/training-symbols": "Introduction to symbols",
+    "tutorials/training-usecase": "A complete use case"
+  }
+}

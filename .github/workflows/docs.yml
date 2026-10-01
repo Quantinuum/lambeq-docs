@@ -1,4 +1,4 @@
-name: Build and deploy documentation
+name: Build documentation
 
 on:
   push:
@@ -12,17 +12,23 @@ on:
     types:
       - released
 
-# We need the following permission to upload the documentation as a release asset.
-# and to be able to deploy to GH pages (https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages#deploying-github-pages-artifacts)
+# Needed to upload the documentation as a release asset.
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 env:
   WORKFLOWS_DIR: .github/workflows
   DOCS_DIR: docs
-  DOCS_BUILD_DIR: build
+  # The shared documentation tooling (generator, preview harness, checkers) is
+  # built from source: documentation-ui links quantinuum-ui from a sibling
+  # checkout while the MDX-era releases of both are in development.
+  DOCS_UI_REF: experimental-docsv2-tailwindv4
+  QUANTINUUM_UI_REF: tailwind-v4-sb
+  # URL prefix the docs are published under (see docs-preview.config.json).
+  BASE_PATH: /lambeq
+  # Output of `docs-build` (docs-build.config.json) and the static preview site.
+  MDX_DIR: build/mdx/content/lambeq
+  SITE_DIR: build/site
 
 jobs:
   build:
@@ -30,125 +36,68 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v6
+      uses: actions/checkout@v7
+    - name: Check out the documentation toolchain
+      uses: actions/checkout@v7
       with:
-        submodules: recursive
-        fetch-depth: 0  # fetches tags, required for version info
-    - name: Set up uv
-      # Install a specific uv version using the installer
-      run: curl -LsSf https://astral.sh/uv/0.5.16/install.sh | sh
-    - name: Set up Python
-      run: uv python install 3.10
-    - name: Install documentation dependencies
-      run: |
-        sudo apt-get install graphviz pandoc
-        uv sync --dev
-    - name: Locate bobcat pre-trained model cache
-      id: loc-bobcat-cache
-      run: echo "dir=$(echo 'from lambeq.text2diagram.model_based_reader.model_downloader import ModelDownloader; print(ModelDownloader("bobcat").model_dir)' | uv run - )" >> $GITHUB_OUTPUT
-    - name: Restore bobcat pre-trained model from cache
-      id: bobcat-cache
-      uses: actions/cache@v6
+        repository: quantinuum-dev/documentation-ui
+        ref: ${{ env.DOCS_UI_REF }}
+        path: _toolchain/documentation-ui
+    - name: Set up the documentation toolchain
+      uses: ./_toolchain/documentation-ui/.github/actions/docs-toolchain
       with:
-        path: ${{ steps.loc-bobcat-cache.outputs.dir }}
-        key: ${{ runner.os }}-bobcat-v1
-        restore-keys: |
-            ${{ runner.os }}-bobcat-v1
-            ${{ runner.os }}-
-    - name: Download bobcat model on cache miss
-      id: download-bobcat-model
-      if: ${{ steps.bobcat-cache.outputs.cache-hit != 'true' }}
-      continue-on-error: true
-      run: echo "dir=$(echo 'from lambeq.text2diagram.model_based_reader.model_downloader import ModelDownloader; md = ModelDownloader("bobcat"); md.download_model(verbose="suppress");' | uv run - )"
-    - name: Locate oncilla pre-trained model cache
-      id: loc-oncilla-cache
-      run: echo "dir=$(echo 'from lambeq.text2diagram.model_based_reader.model_downloader import ModelDownloader; print(ModelDownloader("oncilla").model_dir)' | uv run - )" >> $GITHUB_OUTPUT
-    - name: Restore oncilla pre-trained model from cache
-      id: oncilla-cache
-      uses: actions/cache@v6
-      with:
-        path: ${{ steps.loc-oncilla-cache.outputs.dir }}
-        key: ${{ runner.os }}-oncilla-v1
-        restore-keys: |
-            ${{ runner.os }}-oncilla-v1
-            ${{ runner.os }}-
-    - name: Download oncilla model on cache miss
-      id: download-oncilla-model
-      if: ${{ steps.oncilla-cache.outputs.cache-hit != 'true' }}
-      continue-on-error: true
-      run: echo "dir=$(echo 'from lambeq.text2diagram.model_based_reader.model_downloader import ModelDownloader; md = ModelDownloader("oncilla"); md.download_model(verbose="suppress");' | uv run - )"
-    # - name: Test example notebooks
-    #   env:
-    #     TEST_NOTEBOOKS: 1
-    #   run: >
-    #     uv run pytest --nbmake ${{ env.DOCS_DIR }}/examples/
-    #     --nbmake-timeout=60
-    # - name: Test tutorial notebooks
-    #   env:
-    #     TEST_NOTEBOOKS: 1
-    #   run: >
-    #     uv run pytest --nbmake ${{ env.DOCS_DIR }}/tutorials/
-    #     --nbmake-timeout=60
-    #     --ignore ${{ env.DOCS_DIR }}/tutorials/code
-    - name: Clean notebooks
-      run: |
-        uv run scripts/clean_notebooks.py -p ${{ env.DOCS_DIR }} -s
+        quantinuum-ui-ref: ${{ env.QUANTINUUM_UI_REF }}
+        generate-tools: "true"
+    # `--full` first runs docs-build: the API reference is built with quartodoc
+    # (quartodoc/), the notebooks are rendered from their stored outputs, and
+    # both are merged with the committed MDX prose in docs/. The result is then
+    # exported as a static site, rendered as the central documentation site
+    # renders it.
     - name: Build documentation
+      id: build
+      run: docs-preview build --full --repo .
+    - name: Upload the preview site
+      uses: actions/upload-artifact@v7
+      with:
+        name: lambeq-docs-preview
+        path: ${{ env.SITE_DIR }}
+        if-no-files-found: error
+    # Committed prose is checked where it is authored (docs/); notebook and API
+    # pages are checked as generated (fixes go in the notebook or the docstring).
+    # Company-wide words come with the checker; lambeq's own are in
+    # project-words.txt.
+    - name: Check spelling
+      if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+      run: >
+        docs-check-spelling ${{ env.DOCS_DIR }} ${{ env.MDX_DIR }}
+        --api-reference ${{ env.MDX_DIR }}/api
+    # Links within lambeq (including #anchors) and external links. Links into
+    # other products or the site's home page belong to the central site and are
+    # checked there instead.
+    - name: Restore link-check cache
+      if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+      uses: actions/cache/restore@v6
+      with:
+        path: .lycheecache
+        key: lychee-${{ github.run_id }}-${{ github.run_attempt }}
+        restore-keys: lychee-
+    - name: Check links
+      if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+      run: docs-check-links ${{ env.SITE_DIR }} --base-path ${{ env.BASE_PATH }}
       env:
-        BASE_PATH: '/lambeq'
-      run: uv run ./build-docs.sh
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Save link-check cache
+      if: ${{ !cancelled() && steps.build.outcome == 'success' }}
+      uses: actions/cache/save@v6
+      with:
+        path: .lycheecache
+        key: lychee-${{ github.run_id }}-${{ github.run_attempt }}
     - name: Zip up documentation to store as release asset
       if: ${{ github.event_name == 'release' }}
       run: |
-        tar -cavf lambeq-docs-${{ github.event.release.tag_name }}.tar.gz -C ${{ env.DOCS_BUILD_DIR }} .
+        tar -cavf lambeq-docs-${{ github.event.release.tag_name }}.tar.gz -C ${{ env.SITE_DIR }} .
     - name: Add documentation artifact as release asset
       if: ${{ github.event_name == 'release' }}
       run: gh release upload ${{ github.event.release.tag_name }} lambeq-docs-${{ github.event.release.tag_name }}.tar.gz --clobber
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  
-  deploy-gh:
-    name: Deploy documentation to Github pages
-    if: ${{ github.event_name == 'push' && github.ref_name == 'release' }}
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v6
-      with:
-        submodules: recursive
-        fetch-depth: 0  # fetches tags, required for version info
-    - name: Set up uv
-      # Install a specific uv version using the installer
-      run: curl -LsSf https://astral.sh/uv/0.5.16/install.sh | sh
-    - name: Set up Python
-      run: uv python install 3.12
-    - name: Install documentation dependencies
-      run: |
-        sudo apt-get install graphviz pandoc
-        uv sync --dev
-    - name: Clean notebooks
-      run: |
-        uv run scripts/clean_notebooks.py -p ${{ env.DOCS_DIR }} -s
-    - name: Build documentation
-      env:
-        BASE_PATH: '/lambeq-docs'
-      run: uv run ./build-docs.sh
-    - name: Setup pages
-      id: pages
-      uses: actions/configure-pages@v6
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v5
-      with:
-        # upload build output
-        path: ${{ env.DOCS_BUILD_DIR }}
-    - name: Deploy artifact
-      id: deployment
-      uses: actions/deploy-pages@v4

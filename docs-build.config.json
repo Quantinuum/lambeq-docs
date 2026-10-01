@@ -1,0 +1,13 @@
+{
+  "outDir": "build/mdx",
+  "modules": [
+    {
+      "name": "lambeq",
+      "sourceDir": "docs",
+      "indexFile": "index.rst",
+      "mergedProse": "docs",
+      "quartodoc": "quartodoc",
+      "apiSource": "quartodoc/reference"
+    }
+  ]
+}

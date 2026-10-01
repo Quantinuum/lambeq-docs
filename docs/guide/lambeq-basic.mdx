@@ -1,0 +1,27 @@
+---
+title: "lambeq and compositionality"
+---
+
+`lambeq` is a software toolkit designed for implementing compositional [natural language processing (NLP)](/lambeq/glossary/#term-natural-language-processing-nlp) models using [string diagrams](/lambeq/glossary/#term-string-diagram) on a quantum computer. Language is approximately *compositional* in nature ([Tull et al., 2024](/lambeq/bibliography/#bib-tull_2024)); this is expressed through the *principle of compositionality* which states that the meaning of a complex expression is determined by the meanings of its parts and the rules used to combine them. This concept, rooted in formal linguistics and philosophy, aligns with how humans intuitively process language.
+
+`lambeq` is particularly well-suited for tasks involving natural language processing on quantum computers, although it is also applicable to classical computational environments. It provides tools for:
+
+- Parsing sentences into syntactic structures ([CCG](/lambeq/glossary/#term-combinatory-categorial-grammar-ccg), [pregroup grammars](/lambeq/glossary/#term-pregroup-grammar), dependency graphs).
+- Converting syntactic structures into compositional semantic representations ([string diagrams](/lambeq/glossary/#term-string-diagram), [tensor networks](/lambeq/glossary/#term-tensor-network)).
+- Encoding and parameterising syntactic structures into [quantum circuits](/lambeq/glossary/#term-quantum-circuit).
+- Training and evaluating NLP models using either classical or quantum [machine learning](/lambeq/guide/ml_lambeq/).
+- Integration with widely used ML and QML tools, such as [PyTorch](/lambeq/glossary/#term-pytorch) and [PennyLane](/lambeq/glossary/#term-pennylane).
+
+`lambeq` is rooted in the formalism of [monoidal categories](/lambeq/glossary/#term-monoidal-category) ([Coecke et al., 2010](/lambeq/bibliography/#bib-coecke_2010)), a branch of *category theory* that provides a robust algebraic framework for structuring and reasoning about compositionality. This foundation enables us to model linguistic structures and semantic compositions in a mathematically rigorous yet computationally efficient manner. For this reason, `lambeq`\'s models have some characteristics that differ from traditional statistical approaches.
+
+1.  **Scalability to Quantum Computing:** `lambeq`\'s mathematical foundations are compatible with quantum algorithms, where transformations in quantum states can represent semantic composition. `lambeq` can be used to encode linguistic structures directly into [quantum circuits](/lambeq/glossary/#term-quantum-circuit), enabling out-of-the-box training of parameterised quantum circuits.
+2.  **Interpretability:** The mathematical operations used to combine meanings are transparent and tied directly to linguistic principles. This can support clearer reasoning about model behaviour and accountability, while also helping with debugging and error analysis.
+3.  **Generalisation and flexibility:** The framework is highly abstract, allowing generalization across different types of related data representations ([syntax trees](/lambeq/glossary/#term-syntax-tree), string diagrams, tensor networks, quantum circuits).
+4.  **Connections to formal linguistics:** The compositional nature of `lambeq`\'s models is intended to align computational representations with concepts from formal linguistics, which may help relate model structure to linguistic theory.
+5.  **Interdisciplinary applications:** Since compositionality is a fundamental aspect in many other fields (e.g. systems theory, programming languages, bioinformatics, or even human cognition), `lambeq` can facilitate interdisciplinary research.
+
+## Related research
+
+- The idea of using category theory to represent language was first introduced in ([Coecke et al., 2010](/lambeq/bibliography/#bib-coecke_2010)), which detailed a framework that later became known as [DisCoCat](/lambeq/glossary/#term-discocat). DisCoCat is supported in `lambeq` along with many other compositional schemes.
+- An extension of DisCoCat that allows the compositional encoding of full paragraphs or documents into quantum circuits is described in ([Coecke, 2021](/lambeq/bibliography/#bib-coecke_2021a)). `lambeq` provides experimental support for [DisCoCirc](/lambeq/glossary/#term-discocirc) models through the `discocirc` package ([Krawchuk et al., 2025](/lambeq/bibliography/#bib-krawchuk_2025)).
+- An early, yet-unreleased version of `lambeq` was used in ([Lorenz et al., 2023](/lambeq/bibliography/#bib-lorenz_2023)), a paper that described one of the first small-scale NLP experiments on a real quantum computer. The 40-pages paper provides a detailed introduction to the theoretical framework and the principles on which `lambeq` is now based, and it\'s an excellent starting point for the interested readers.

@@ -1,0 +1,25 @@
+---
+title: "Basic concepts"
+---
+
+In `lambeq`, all low-level processing that takes place in machine learning training is hidden in the [`training`](/lambeq/api/lambeq.training#lambeq.training) package, which provides convenient high-level abstractions for many supervised learning scenarios with the toolkit, classical and quantum. More specifically, the [`training`](/lambeq/api/lambeq.training#lambeq.training) package contains the following high-level/abstract classes and several concrete implementations for them:
+
+- [`Dataset`](/lambeq/api/lambeq.training#lambeq.training.Dataset): A class that provides functionality for easy management and manipulation of datasets, including batching, shuffling, and preparation based on the selected backend ([tket](/lambeq/glossary/#term-tket), NumPy, [PyTorch](/lambeq/glossary/#term-pytorch)).
+- [`Model`](/lambeq/api/lambeq.training#lambeq.training.Model): The abstract interface for `lambeq` [models](/lambeq/glossary/#term-model). A [model](/lambeq/glossary/#term-model) bundles the basic attributes and methods used for training, given a specific backend. It stores the [symbols](/lambeq/glossary/#term-symbol) and the corresponding weights, and implements the forward pass of the model. Concrete implementations are the [`PytorchModel`](/lambeq/api/lambeq.training#lambeq.training.PytorchModel), [`TketModel`](/lambeq/api/lambeq.training#lambeq.training.TketModel), [`NumpyModel`](/lambeq/api/lambeq.training#lambeq.training.NumpyModel), and [`PennyLaneModel`](/lambeq/api/lambeq.training#lambeq.training.PennyLaneModel) classes (for more details see Section [Choosing a model](/lambeq/guide/ml_models/) below).
+- [`LossFunction`](/lambeq/api/lambeq.training#lambeq.training.LossFunction): Implementations of this class compute the distance between the predicted values of the [model](/lambeq/glossary/#term-model) and the true values in the dataset. This is used to adjust the model weights so that the average loss across all data instances can be minimised. `lambeq` supports a number of loss functions, such as [`CrossEntropyLoss`](/lambeq/api/lambeq.training#lambeq.training.CrossEntropyLoss), [`BinaryCrossEntropyLoss`](/lambeq/api/lambeq.training#lambeq.training.BinaryCrossEntropyLoss), and [`MSELoss`](/lambeq/api/lambeq.training#lambeq.training.MSELoss).
+- [`Optimizer`](/lambeq/api/lambeq.training#lambeq.training.Optimizer): a `lambeq` optimizer calculates the gradient of a given [loss function](/lambeq/glossary/#term-loss-function) with respect to the parameters of a model. It contains a `step` method to modify the model parameters according to the optimizer\'s update rule. Currently, for the quantum case we support the SPSA algorithm by ([Spall, 1998](/lambeq/bibliography/#bib-spall_1998)), implemented in the [`SPSAOptimizer`](/lambeq/api/lambeq.training#lambeq.training.SPSAOptimizer) class, the Rotosolve algorithm ([Ostaszewski et al., 2021](/lambeq/bibliography/#bib-ostaszewski_2021)) with class [`RotosolveOptimizer`](/lambeq/api/lambeq.training#lambeq.training.RotosolveOptimizer), and the Nelder-Mead algorithm ([Nelder & Mead, 1965](/lambeq/bibliography/#bib-nelder_1965); [Gao & Han, 2012](/lambeq/bibliography/#bib-gao_2012)) with class `NelderMeadOptimizer`, while for the classical and hybrid cases we support [PyTorch](/lambeq/glossary/#term-pytorch) optimizers.
+- [`Trainer`](/lambeq/api/lambeq.training#lambeq.training.Trainer): The main interface for supervised learning in `lambeq`. A [trainer](/lambeq/glossary/#term-trainer) implements the (quantum) machine learning routine given a specific backend, using a [loss function](/lambeq/glossary/#term-loss-function) and an optimizer. Concrete implementations are the [`PytorchTrainer`](/lambeq/api/lambeq.training#lambeq.training.PytorchTrainer) and [`QuantumTrainer`](/lambeq/api/lambeq.training#lambeq.training.QuantumTrainer) classes.
+
+The process of training a [model](/lambeq/glossary/#term-model) involves the following steps:
+
+1.  Instantiate the [`Model`](/lambeq/api/lambeq.training#lambeq.training.Model).
+2.  Instantiate a [`Trainer`](/lambeq/api/lambeq.training#lambeq.training.Trainer), passing to it a [model](/lambeq/glossary/#term-model), a [loss function](/lambeq/glossary/#term-loss-function), and an optimizer.
+3.  Create a [`Dataset`](/lambeq/api/lambeq.training#lambeq.training.Dataset) for training, and optionally, one for evaluation.
+4.  Train the [model](/lambeq/glossary/#term-model) by handing the dataset to the `fit` method of the [trainer](/lambeq/glossary/#term-trainer).
+
+<Callout type="info">
+
+`lambeq` covers a wide range of training use cases, which are described in detail under [lambeq use cases](/lambeq/guide/ml_use-cases/). Depending on your specific use case (e.g., classical or (simulated) quantum machine learning, etc.), you can choose from a variety of models and their according trainers. Refer to Section [Choosing a model](/lambeq/guide/ml_models/) for a detailed overview of the available models and trainers.
+
+</Callout>
+

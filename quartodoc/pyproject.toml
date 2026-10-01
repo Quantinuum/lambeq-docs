@@ -1,0 +1,37 @@
+# uv-managed environment for generating the lambeq Python API reference with
+# quartodoc. Not a distributable package — just a locked, reproducible env,
+# kept separate from the repo's own (notebook) dependencies because quartodoc pulls
+# conflicting pins.
+#
+# lambeq is pinned to the exact commit the docs (lambeq-docs tag 0.5.0-002,
+# 2026-06-04) were built against — its docs/conf.py builds against "[git latest]",
+# not a released package, so the documented API surface (e.g. the git-only
+# modules) does not exist on the 0.5.0 PyPI release. The [extras,experimental]
+# groups pull the optional deps that documented modules import (discopy, pennylane,
+# pytket, etc.).
+#
+# quartodoc 0.11.1 requires griffe<1: griffe 2.x breaks its numpydoc parser call
+# with "parse_numpy() got an unexpected keyword argument allow_section_blank_line".
+#
+# Provision / refresh:
+#   uv sync            # creates .venv from the committed uv.lock
+#   uv lock --upgrade  # re-resolve (only when intentionally bumping deps)
+#
+# Build the API docs: `docs-build` from the repo root (quartodoc build ->
+# reference/*.qmd, then ingested into MDX).
+
+[project]
+name = "lambeq-api-docs"
+version = "0.0.0"
+description = "Doc-generation environment for the lambeq Python API reference (quartodoc)."
+# Pinned to 3.12: some transitive deps (e.g. sentencepiece 0.2.0 via maverick-coref)
+# ship no cp313 wheel and fail to build from source. See also .python-version.
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "lambeq[extras,experimental] @ git+https://github.com/Quantinuum/lambeq.git@2c4483bc4eb6ff84dbb27474c1accbfed0ad692f",
+  "quartodoc==0.11.1",
+  "griffe<1",
+]
+
+[tool.uv]
+package = false
